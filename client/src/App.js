@@ -1,26 +1,28 @@
-// App.js
-import React from 'react';
 import {
-  BrowserRouter,
-  Link,
+  createBrowserRouter,
+  createRoutesFromElements,
   Route,
-  Routes,
-} from "react-router-dom";
-import Login from './Pages/Login';
-import SignUp from './Pages/SignUp';
+  RouterProvider
+} from 'react-router-dom'
+import RootLayout from './Layouts/RootLayout';
 import Home from './Pages/Home';
-import SignUpForm from './Pages/SignUpForm';
+import Login from './Pages/Login';
+import Registration from './Pages/Registration';
 
 
-const App = () => {
+function App() {
+
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route path='/' element={<RootLayout />}>
+        <Route index element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Registration />} />
+      </Route >
+    )
+  )
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUpForm />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
-      </BrowserRouter>
+    <RouterProvider router={router}/>
   );
 };
 

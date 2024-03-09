@@ -1,12 +1,12 @@
 import { Box } from '@chakra-ui/react'
 import React from 'react'
 
-const Home = () => {
+const Navbar = () => {
   return (
-    <Box height='100%' bgColor='orange'>
-      Home
+    <Box bgColor='blue'>
+      Navbar
     </Box>
   )
 }
 
-export default Home
+export default Navbar
