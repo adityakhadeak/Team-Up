@@ -1,8 +1,8 @@
 // SignUpForm.js
 import React, { useState } from 'react';
 import '../CSS/SignUp.css';  
-import Header from '../components/header';
-import Footer from '../components/footer';
+import Header from './header';
+import Footer from './footer';
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
     username: '',
