@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, GridItem } from '@chakra-ui/react'
 import { Outlet } from 'react-router-dom'
-import Navbar from '../Components/Navbar'
+import Navbar from '../Components/Navbar.js'
 
 const RootLayout = () => {
     return (

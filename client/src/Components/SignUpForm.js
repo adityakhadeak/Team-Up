@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import '../CSS/SignUp.css';  
 import Header from './header';
 import Footer from './footer';
+
 const SignUpForm = () => {
   const [formData, setFormData] = useState({
     username: '',
