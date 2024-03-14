@@ -8,7 +8,7 @@ import RootLayout from './Layouts/RootLayout';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Registration from './Pages/Registration';
-
+import Postproject from './Pages/Postproject';
 
 function App() {
 
@@ -18,6 +18,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Registration />} />
+        <Route path='/postproj' element={<Postproject />} />
       </Route >
     )
   )

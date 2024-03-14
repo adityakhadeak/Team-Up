@@ -1,7 +1,8 @@
 import { Box, Button, FormControl, FormLabel, Grid, GridItem, Input, Text, InputRightElement, InputGroup, Image } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { FcGoogle } from "react-icons/fc";
-import image1 from '../Images/loginpage.png'
+import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
 const Login = () => {
 
   const [show, setShow] = useState(false)
@@ -47,7 +48,7 @@ const Login = () => {
               <Text fontSize='11px'>By clicking Continue, you agree to LinkedIn’s <Box as='a' color='#0a66c2' fontWeight='500' href='#'>User Agreement</Box>, <Box as='a' color='#0a66c2' fontWeight='500' href='#'>Privacy Policy</Box>, and <Box color='#0a66c2' as='a' fontWeight='500' href='#'>Cookie Policy</Box>.</Text>
             </Box>
             <Box display='flex' justifyContent={'center'} alignItems={'center'} width='100%' py='10px' my='20px'>
-              <Button width={{base:'100%',md:'90%'}} height='45px' borderRadius='20px' ><Box as='span' mx='8px'><FcGoogle fontSize='20px' /></Box> Continue with Google</Button>
+              <Button width={{ base: '100%', md: '90%' }} height='45px' borderRadius='20px' ><Box as='span' mx='8px'><FcGoogle fontSize='20px' /></Box> Continue with Google</Button>
             </Box>
           </Box>
         </Box>
@@ -61,7 +62,7 @@ const Login = () => {
             <Text textAlign='center' color='white' fontSize='15px'>Sign up and discover exciting projects and find opportunities to contribute your skills and expertise.</Text>
           </Box>
           <Box display='flex' justifyContent={'center'} alignItems={'center'} width='100%' py='10px' my='20px'>
-            <Button width='70%' height='45px' borderRadius='20px' colorScheme='gray'>Sign up</Button>
+            <Button width='70%' height='45px' borderRadius='20px' colorScheme='gray'><ChakraLink as={ReactRouterLink} to='/register'>Sign up</ChakraLink></Button>
           </Box>
         </Box>
       </GridItem>
