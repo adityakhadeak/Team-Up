@@ -1,13 +1,15 @@
 import React from 'react'
 import { Grid, GridItem } from '@chakra-ui/react'
-import { Outlet } from 'react-router-dom'
-import Navbar from '../Components/Navbar.js'
+import { Outlet, useLocation } from 'react-router-dom'
+import Navbar from '../Components/Navbar'
 
 const RootLayout = () => {
+    const location = useLocation();
+
     return (
         <Grid height='100vh' templateRows='auto 1fr'>
             <GridItem>
-                <Navbar />
+                {!location.pathname==='/login' && <Navbar />}
             </GridItem>
             <GridItem>
                 <Outlet />
