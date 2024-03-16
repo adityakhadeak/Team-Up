@@ -1,33 +1,14 @@
-import { Box, Button, FormControl, FormLabel, Grid, GridItem, Input, Text, InputRightElement, InputGroup, Image } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, Grid, GridItem, Input, Text, InputRightElement, InputGroup } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { FcGoogle } from "react-icons/fc";
 import { Link as ReactRouterLink } from 'react-router-dom'
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 const Registration = () => {
-  const [formData, setFormData] = useState({
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Implement MongoDB data insertion logic here
-    console.log('Form submitted:', formData);
-    // You can send the form data to your MongoDB database from here
-  };
+ 
 
     const [show, setShow] = useState(false)
     const handleClick = () => setShow(!show)
+    const toast = useToast()
     return (
       <Grid fontFamily={'Raleway'} height={'100%'} templateRows={'auto'} templateColumns={{ base: '1fr', md: '1fr 2fr' }} >
           <GridItem backgroundColor='#0a66c2' display={{ base: "none", md: 'block' }}>
@@ -39,7 +20,7 @@ const Registration = () => {
               <Text textAlign='center' color='white' fontSize='15px'>Access your account to explore thrilling projects and discover ways to contribute your talents and knowledge</Text>
             </Box>
             <Box display='flex' justifyContent={'center'} alignItems={'center'} width='100%' py='10px' my='20px'>
-              <Button width='70%' height='45px' borderRadius='20px' colorScheme='gray'><ChakraLink as={ReactRouterLink} to='/login'>Sign in</ChakraLink></Button>
+              <Button width='70%' height='45px' borderRadius='20px' colorScheme='gray' as={ReactRouterLink} to='/login'>Sign in</Button>
             </Box>
           </Box>
         </GridItem>
@@ -85,7 +66,14 @@ const Registration = () => {
                 </FormControl>
                
                 <Box display='flex' justifyContent={'center'} alignItems={'center'} width='100%' py='10px' my='20px'>
-                  <Button width='90%' height='45px' borderRadius='20px' colorScheme='linkedin'>Sign up</Button>
+                  <Button width='90%' height='45px' borderRadius='20px' colorScheme='linkedin'onClick={() =>
+                    toast({
+                      title: 'Account created.',
+                      description: "We've created your account for you.",
+                      status: 'success',
+                      duration: 9000,
+                      isClosable: true,
+                    })}>Sign up</Button>
                 </Box>
   
               </form>

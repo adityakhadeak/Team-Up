@@ -1,12 +1,13 @@
-import { Box, Button, FormControl, FormLabel, Grid, GridItem, Input, Text, InputRightElement, InputGroup, Image } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormLabel, Grid, GridItem, Input, Text, InputRightElement, InputGroup } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { FcGoogle } from "react-icons/fc";
 import { Link as ReactRouterLink } from 'react-router-dom'
-import { Link as ChakraLink, LinkProps } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 const Login = () => {
 
   const [show, setShow] = useState(false)
   const handleClick = () => setShow(!show)
+  const toast = useToast()
   return (
     <Grid fontFamily={'Raleway'} height={'100%'} templateRows={'auto'} templateColumns={{ base: '1fr', md: '2fr 1fr' }} >
       <GridItem >
@@ -37,7 +38,15 @@ const Login = () => {
               </FormControl>
               <Text as='a' href="#" fontWeight='500' color='#0a66c2' >Forgot password?</Text>
               <Box display='flex' justifyContent={'center'} alignItems={'center'} width='100%' py='10px' my='20px'>
-                <Button width='90%' height='45px' borderRadius='20px' colorScheme='linkedin'>Sign in</Button>
+                <Button width='90%' height='45px' borderRadius='20px' colorScheme='linkedin'onClick={() =>
+        toast({
+          title: 'Log in Successfully.',
+         
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
+      }>Sign in</Button>
               </Box>
 
             </form>
@@ -53,6 +62,7 @@ const Login = () => {
           </Box>
         </Box>
       </GridItem>
+      
       <GridItem backgroundColor='#0a66c2' display={{ base: "none", md: 'block' }}>
         <Box height='100%' display='flex' justifyContent='center' alignItems='center' flexDirection='column' padding='20px'>
           <Box my='10px' p='10px' >
@@ -62,7 +72,7 @@ const Login = () => {
             <Text textAlign='center' color='white' fontSize='15px'>Sign up and discover exciting projects and find opportunities to contribute your skills and expertise.</Text>
           </Box>
           <Box display='flex' justifyContent={'center'} alignItems={'center'} width='100%' py='10px' my='20px'>
-            <Button width='70%' height='45px' borderRadius='20px' colorScheme='gray'><ChakraLink as={ReactRouterLink} to='/register'>Sign up</ChakraLink></Button>
+            <Button width='70%' height='45px' borderRadius='20px' colorScheme='gray'  as={ReactRouterLink} to='/register'>Sign up</Button>
           </Box>
         </Box>
       </GridItem>
