@@ -11,6 +11,7 @@ import Registration from './Pages/Registration';
 import Postproject from './Pages/Postproject';
 import Findproject from './Pages/Findproject';
 import Footer from './Components/footer'
+import PassRecover from './Pages/PassRecover';
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
         <Route path='/postproj' element={<Postproject />} />
         <Route path='/findproj' element={<Findproject />} />
         <Route path='/footer' element={<Footer />} />
+        <Route path='/recoverpassword' element={<PassRecover />} />
       </Route >
     )
   )
