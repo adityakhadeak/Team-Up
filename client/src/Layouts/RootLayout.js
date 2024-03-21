@@ -5,11 +5,11 @@ import Navbar from '../Components/Navbar'
 
 const RootLayout = () => {
     const location = useLocation();
-
+    console.log(location.pathname)
     return (
         <Grid height='100vh' templateRows='auto 1fr'>
-            <GridItem>
-                {!location.pathname==='/login' && <Navbar />}
+            <GridItem w='100%'>
+                <Navbar />
             </GridItem>
             <GridItem>
                 <Outlet />
