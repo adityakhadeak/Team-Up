@@ -8,59 +8,24 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer>
-      {/* Your footer content */}
-      <Box bg='#2088f1' my='4rem' p='12px' borderTopLeftRadius='17px' borderTopRightRadius='17px'>
-        <Box display='Flex' justifyContent='space-around' color='black'>
-          <Box>
-            <Text>About Us</Text>
-          </Box>
-          <Box>
-            <Text>Privacy Policy</Text>
-          </Box>
-          <Box>
-            <Text>Terms Of Serivce</Text>
-          </Box>
-          <Box>
-            <Text>Help</Text>
-          </Box>
-          <Box>
-            <Text>Contact Us</Text>
-          </Box>
+      <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' width='100%' height='400px'>
+        <Box  width='70%' gap='10' my='15px' display='flex' justifyContent='space-evenly' alignItems='center' >
+          <Box mx='5px'> <Link><Text> About</Text></Link>    </Box>
+          <Box mx='5px'><Link><Text> Explore</Text></Link></Box>
+          <Box mx='5px'><Link><Text> Create</Text></Link></Box>
+          <Box mx='5px'><Link><Text> Message</Text></Link></Box>
+          <Box mx='5px'><Link><Text> Community</Text></Link></Box>
         </Box>
-        <Text fontWeight='bold' color='black' alignItems='center' textAlign='center' my='20px'>Get In Touch</Text>
-        <Box display='flex' color='black' alignItems='center' justifyContent='center' textAlign='center' my='15px'>
-          <Box mx='12px'>
-            <Icon _hover={{ transform: 'scale(1.2)' }}as={FaInstagram} boxSize={6} /></Box>
-          <Box mx='12px'> <Icon _hover={{ transform: 'scale(1.2)' }} as={FaLinkedin} boxSize={6} /></Box>
-          <Box mx='12px'><Icon _hover={{ transform: 'scale(1.2)' }} as={FaGithub} boxSize={6} /></Box>
-          <Box mx='12px'><Icon _hover={{ transform: 'scale(1.2)' }} as={FaTwitter} boxSize={6} /></Box>
+        <Box width='70%' gap='14' my='15px' display='flex' justifyContent='space-evenly' alignItems='center' >
+          <Box mx='5px'> <Link><Text> Projects</Text></Link> </Box>
+          <Box mx='5px'> <Link><Text> Posts</Text></Link> </Box>
+          <Box mx='5px'> <Link><Text> Events</Text></Link> </Box>
+          <Box mx='5px'> <Link><Text> People</Text></Link> </Box>
+          <Box mx='5px'><Link><Text> Home</Text></Link> </Box>
         </Box>
-        <Box p="4">
-          <Box display="flex" alignItems="center" justifyContent="center" mb="4">
-            <Box mx="4">
-              <Icon _hover={{ transform: 'scale(1.2)' }} as={FaMapMarkerAlt} boxSize={6} />
-            </Box>
-            <Box>
-              123 Main Street, Cityville, State, Zip Code
-            </Box>
-          </Box>
-          <Box display="flex" alignItems="center" justifyContent="center" mb="4">
-            <Box mx="4">
-              <Icon _hover={{ transform: 'scale(1.2)' }}as={FaPhone} boxSize={6} />
-            </Box>
-            <Box>
-              <Link href="tel:+1234567890">+1 (123) 456-7890</Link>
-            </Box>
-          </Box>
-          <Box display="flex" alignItems="center" justifyContent="center">
-            <Box mx="4">
-              <Icon _hover={{ transform: 'scale(1.2)' }} as={FaEnvelope} boxSize={6} />
-            </Box>
-            <Box>
-              <Link href="mailto:info@example.com">info@example.com</Link>
-            </Box>
-            
-          </Box>
+        <Box width='74%' gap='10' my='15px' display='flex' justifyContent='space-evenly' alignItems='center' >
+          <Box mx='5px'> <Link><Text> Developer</Text></Link> </Box>
+          
         </Box>
       </Box>
     </footer>

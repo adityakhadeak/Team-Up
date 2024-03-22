@@ -88,7 +88,7 @@ const Login = () => {
         </Box>
       </GridItem>
 
-      <GridItem backgroundColor='#0a66c2' display={{ base: "none", md: 'block' }}>
+      <GridItem backgroundColor='#00a0dc' display={{ base: "none", md: 'block' }}>
         <Box height='100%' display='flex' justifyContent='center' alignItems='center' flexDirection='column' padding='20px'>
           <Box my='10px' p='10px' >
             <Text fontWeight='900' color='white' fontSize='35px'>New Here?</Text>
