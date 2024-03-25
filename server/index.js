@@ -1,11 +1,15 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import connectToDB from './database/db.js'
-
+import authRouter from './routes/authRoutes.js'
+import userRouter from './routes/userRoute.js'
 const app=express()
 
 dotenv.config()
 
+app.use(express.json())
+
+app.use('/api/auth',userRouter)
 const port=process.env.PORT || 4000
 
 connectToDB()
