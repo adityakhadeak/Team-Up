@@ -3,6 +3,7 @@ import { Grid, GridItem } from '@chakra-ui/react'
 import { Outlet, useLocation } from 'react-router-dom'
 import Navbar from '../Components/Navbar'
 import Footer from '../Components/footer'
+import ScrollToTop from '../Components/ScrollToTop'
 
 const RootLayout = () => {
     const location = useLocation();
@@ -11,6 +12,7 @@ const RootLayout = () => {
         <Grid height='100vh' templateRows='auto 1fr auto'>
             <GridItem w='100%'>
                 <Navbar />
+                <ScrollToTop/>
             </GridItem>
             <GridItem>
                 <Outlet />

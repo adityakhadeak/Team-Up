@@ -1,66 +1,91 @@
-import React, { useState } from "react";
-import { Box, Text, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
-import { FaSearch } from "react-icons/fa";
-import { Button } from "@chakra-ui/react";
+import { Box, Button, Input, InputGroup, InputLeftElement, InputRightElement, Text } from '@chakra-ui/react'
+import React from 'react'
+import bgmain from '../Images/findproject/bgmain.png'
+import recom1 from '../Images/findproject/recom1.png'
+import recom2 from '../Images/findproject/recom2.png'
+import recom3 from '../Images/findproject/recom3.png'
+import recom4 from '../Images/findproject/recom4.png'
+import recom5 from '../Images/findproject/recom5.png'
+import { CiSearch } from "react-icons/ci";
+import { BsPeople } from "react-icons/bs";
 
-const FindProject = () => {
-    const [isButtonActive, setIsButtonActive] = useState(false);
+import { BiMessageSquareDots } from "react-icons/bi";
+import { PiHandshake } from "react-icons/pi";
+import { Link } from 'react-router-dom'
 
-    const handleButtonClick = () => {
-        setIsButtonActive(!isButtonActive);
-    };
 
-    return (
-        <Box height='100%' display='flex' justifyContent='center' alignItems='center'>
-            <Box width={{ base: '100%', md: '70%' }} height='600px' rounded='md' bg='white' padding='35px' my='20px' >
-                <Text as='h1' fontSize='30px' fontWeight='bold' >Find a Project</Text>
-                <Text color='gray'> Search for project that you're interested in. You can filter by project type, requirement, deadline, and location</Text>
-                <InputGroup>
-                    <InputLeftElement pointerEvents="none">
-                        <FaSearch color="gray.300" />
-                    </InputLeftElement>
-                    <Input height='45px' type="text" placeholder="Search for a keyword" variant="filled" />
-                </InputGroup>
-                <Box display='flex' justifyContent='space-around'>
-                    <Box width='50%'>
-                        <Button my='16px' width='4rem' height='1.5rem' borderRadius='20px' colorScheme={isButtonActive ? "blue" : "gray"} onClick={handleButtonClick}>
-                            All
-                        </Button>
-                    </Box>
-                    <Box>
-                        <Button my='16px' width='4rem' height='1.5rem' borderRadius='20px' colorScheme={isButtonActive ? "blue" : "gray"} onClick={handleButtonClick}>
-                            Software developement
-                        </Button>
-                    </Box>
-                    <Box>
-                        <Button my='16px' width='4rem' height='1.5rem' borderRadius='20px' colorScheme={isButtonActive ? "blue" : "gray"} onClick={handleButtonClick}>
-                            Dara Science
-                        </Button>
-                    </Box>
-                    <Box>
-                        <Button my='16px' width='4rem' height='1.5rem' borderRadius='20px' colorScheme={isButtonActive ? "blue" : "gray"} onClick={handleButtonClick}>
-                            Design
-                        </Button>
-                    </Box>
-                    <Box>
-                        <Button my='16px' width='100 %' height='1.5rem' borderRadius='20px' colorScheme={isButtonActive ? "blue" : "gray"} onClick={handleButtonClick}>
-                            Writing
-                        </Button>
-                    </Box>
-                    <Box>
-                        <Button my='16px' width='4rem' height='1.5rem' borderRadius='20px' colorScheme={isButtonActive ? "blue" : "gray"} onClick={handleButtonClick}>
-                            Marketing
-                        </Button>
-                    </Box>
-                    <Box>
-                        <Button my='16px' width='4rem' height='1.5rem' borderRadius='20px' colorScheme={isButtonActive ? "blue" : "gray"} onClick={handleButtonClick}>
-                            Video Production
-                        </Button>
-                    </Box>
-                </Box>
+const Findproject = () => {
+
+  const data = [
+    {
+      title: 'Build a website for a new company',
+      img: recom1,
+    },
+    {
+      title: 'Design a logo for a local business',
+      img: recom2,
+    },
+    {
+      title: 'Write a blog post about new technology',
+      img: recom3,
+    },
+    {
+      title: 'Create a social media campaign for a startup',
+      img: recom4,
+    },
+    {
+      title: 'Update an iOS app for the latest iPhone',
+      img: recom5,
+    }
+
+  ]
+
+
+ 
+
+  return (
+    <Box fontFamily={'Raleway'}  height='100%' >
+      <Box display='flex' flexDirection='column' justifyContent='center' alignItems='center' px={{ base: '30px', md: '70px' }}>
+        <Box py='30px' backgroundImage={bgmain} backgroundRepeat='no-repeat' backgroundPosition='center' position='relative' display='flex' justifyContent='center' alignItems='flex-end' h='500px' width='100%' >
+          {/* <img src={home} alt="" /> */}
+          <Box width='60%' display='flex' justifyContent='flex-end' flexDirection='column' alignItems='start' >
+
+            <Text fontSize='40px' color='white' fontWeight='700' as='h1'>Find the right project for you</Text>
+            <Text fontSize='15px' color='white' w='60%' as='p'>Create a profile and tell us about your skills. We'll match you with the right projects.</Text>
+            <Box my='20px' w={{md:'40%',base:'100%'}}>
+              <InputGroup size='md'>
+                <InputLeftElement my='5.5px'><CiSearch fontSize='20px' /></InputLeftElement>
+                <Input
+                  backgroundColor='white'
+                  p='25px'
+                  px='4rem'
+                  type='text'
+                  placeholder='Search for a project'
+                />
+                <InputRightElement px='4px' display='flex' my='5.5px' alignItems='center' justifyContent='center' width='auto' >
+                  <Button fontSize='15px' width='80%' height='40px' color='white' borderRadius='10px' colorScheme='linkedin' to='/login'>Search</Button>
+
+                </InputRightElement>
+              </InputGroup>
             </Box>
+          </Box>
         </Box>
-    );
-};
+        <Text mt='20px' textAlign='left' width='70%'  fontSize='26px' fontWeight='600' as='h1'>Recommended for you</Text>
+        <Box  flexWrap='wrap' display='flex' justifyContent='center' alignItems='center' gap='0'>
+          {data.map((fea, key) => (
+            <Box cursor='pointer' h='275px' p='8px' my='10px' py='12px'  rounded='md' w='200px'>
+              <img width='190px' src={fea.img} alt="" />
+              <Box my='15px' as='p'>
+                <Text fontWeight='600' as='h3'>{fea.title}</Text>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+        
+        
+      </Box>
+    </Box>
+  )
+}
 
-export default FindProject;
+export default Findproject
