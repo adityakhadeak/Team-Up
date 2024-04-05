@@ -7,3 +7,8 @@ export const registerValidation=[
     check('firstname','Firstname is required').not().notEmpty().isString().isLength({min:2, max:10}),
     check('lastname','Firstname is required').not().notEmpty().isString()
 ]
+
+export const otpMailValidator=[
+    check('username','Username is required').not().notEmpty().isString(),
+    // check('otp','OTP is required').isNumeric().isLength({max:4,max:4})
+]
