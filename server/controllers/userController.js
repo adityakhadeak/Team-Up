@@ -5,9 +5,11 @@ import jwt from 'jsonwebtoken'
 import OtpModel from "../models/OtpModel.js";
 import sendMail from "../helper/mailer.js";
 import { oneMinuteExpiryCheck, threeMinuteExpiryCheck } from "../helper/otpValidate.js";
+
 export const registerController = async (req, res) => {
 
     try {
+        console.log(req.body)
 
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -17,7 +19,7 @@ export const registerController = async (req, res) => {
                 errors: errors.array()
             })
         }
-
+        console.log(req.body)
         const { username, password, email, firstname, lastname } = req.body
 
         const doUsernameExist = await UserModel.findOne({ username })
@@ -87,8 +89,7 @@ export const loginController = async (req, res) => {
             })
         }
 
-        if(userExist.isverified==0)
-        {
+        if (userExist.isverified == 0) {
             return res.status(401).json({
                 success: false,
                 message: "Please verify the account"
@@ -104,7 +105,7 @@ export const loginController = async (req, res) => {
             success: true,
             message: "User logged in successfully",
             token,
-            user:userExist
+            user: userExist
         })
 
 

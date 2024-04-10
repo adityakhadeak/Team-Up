@@ -1,11 +1,30 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { FcGoogle } from 'react-icons/fc';
 import { RegistrationContext } from '../../Context/RegistrationContext.js';
 const RegistrationStep2 = () => {
-  const { setRegistrationStep, registrationStep, setUserRegistrationInfo, userRegistrationInfo } = useContext(RegistrationContext)
+  const { setRegistrationStep, registrationStep, setUserRegistrationInfo, userRegistrationInfo, success, handleRegistration } = useContext(RegistrationContext)
+
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    const submitRegistration = async () => {
+      if (isSubmitting) {
+        try {
+          await handleRegistration();
+          setIsSubmitting(false); // Reset submitting state after handleRegistration is completed
+          setRegistrationStep(success ? 3 : 1);
+        } catch (error) {
+          // Handle error
+          setIsSubmitting(false); // Reset submitting state on error
+        }
+      }
+    };
+
+    submitRegistration();
+  }, [isSubmitting, success, handleRegistration, setRegistrationStep, setUserRegistrationInfo]);
 
 
   const formik = useFormik({
@@ -18,13 +37,13 @@ const RegistrationStep2 = () => {
     validateOnChange: true,
     validationSchema: Yup.object({
       username: Yup.string().required("Username required").min(6, "Username must be atleast of 6 characters").matches('^[a-zA-Z0-9]+$', 'Username should not contain special characters'),
-      firstname:Yup.string().required('Please enter your firstname').min(2,"Name atleast of 2 length"),
-      lastname:Yup.string().required('Please enter your lastname')
+      firstname: Yup.string().required('Please enter your firstname').min(2, "Name atleast of 2 length"),
+      lastname: Yup.string().required('Please enter your lastname')
     }),
     onSubmit: (values, actions) => {
       if (!formik.errors.username && !formik.errors.firstname && !formik.errors.lastname) {
-        setRegistrationStep(3);
-        setUserRegistrationInfo({ ...userRegistrationInfo, username: formik.values.username, firstname: formik.values.firstname,lastname:formik.values.lastname })
+        setUserRegistrationInfo({ ...userRegistrationInfo, username: formik.values.username, firstname: formik.values.firstname, lastname: formik.values.lastname })
+        setIsSubmitting(true)
         // Set registration step to 2 only if there are no errors
       } actions.resetForm()
     }

@@ -8,9 +8,7 @@ import { keyframes } from '@emotion/react';
 const Navbar = () => {
 
   const { isFixed } = useContext(NavFixedContext)
-  useEffect(() => {
-    console.log(isFixed)
-  }, [isFixed])
+ 
 
   const fadeInDown = keyframes`
   0% {
@@ -27,7 +25,7 @@ const Navbar = () => {
 <Box position={isFixed ? 'fixed' : 'relative'}  animation={ isFixed?`${fadeInDown} 0.4s ease-in-out`:''} backgroundColor='white' zIndex='1000' width='100%' fontFamily={'Raleway'}>
       <Box display={{ base: 'flex', md: 'flex' }} borderBottom='solid 0.5px #e6e6e6' boxShadow={'0px 0px 10px 0px #e5e5e5'} alignItems='center' justifyContent='center' height='60px' p='5px' px='20px'>
         <Box >
-          <Link to='/'><Text as='a' fontWeight='600' fontSize='22px'>TeamUp</Text></Link>
+          <Link to='/'><Text  fontWeight='600' fontSize='22px'>TeamUp</Text></Link>
         </Box>
         <Spacer />
         <Box mx='20px' display='flex' alignItems='center' gap='5' justifyContent='center'>
@@ -46,10 +44,10 @@ const Navbar = () => {
         </Box>
         <Box mx='15px' display='flex' alignItems='center' justifyContent='center'>
           <Box mx='5px' display='flex' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
-            <Link to='/login' >  <Button as='a' width='100%' height='45px' borderRadius='10px' colorScheme='linkedin' >Sign In</Button></Link>
+            <Link to='/login' >  <Button  width='100%' height='45px' borderRadius='10px' colorScheme='linkedin' >Sign In</Button></Link>
           </Box>
           <Box mx='5px' display='flex' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
-            <Link to='/register' >  <Button as='a' width='100%' height='45px' borderRadius='10px' colorScheme='gray' >Sign Up</Button></Link>
+            <Link to='/register' >  <Button  width='100%' height='45px' borderRadius='10px' colorScheme='gray' >Sign Up</Button></Link>
           </Box>
         </Box>
       </Box>

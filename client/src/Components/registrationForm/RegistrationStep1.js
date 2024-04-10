@@ -61,6 +61,7 @@ const RegistrationStep1 = () => {
                 pr='4.5rem'
                 type={showPassword ? 'text' : 'password'}
                 placeholder='Enter password'
+                autoComplete='true'
               />
               <InputRightElement my='5px' width='4.5rem'>
                 <Button h='1.75rem' size='sm' onClick={handlePasswordClick}>
@@ -84,6 +85,8 @@ const RegistrationStep1 = () => {
                 pr='4.5rem'
                 type={showConfirmPassword ? 'text' : 'password'}
                 placeholder='Enter Confirm password'
+                autoComplete='true'
+
               />
               <InputRightElement my='5px' width='4.5rem'>
                 <Button h='1.75rem' size='sm' onClick={handleConfirmPasswordClick}>

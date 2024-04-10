@@ -7,7 +7,6 @@ import ScrollToTop from '../Components/ScrollToTop'
 
 const RootLayout = () => {
     const location = useLocation();
-    console.log(location.pathname)
     return (
         <Grid height='100vh' templateRows='auto 1fr auto'>
             <GridItem w='100%'>
@@ -17,7 +16,7 @@ const RootLayout = () => {
             <GridItem>
                 <Outlet />
             </GridItem>
-            <GridItem w='100%'>
+            <GridItem display={location==='/register'||'login'?'none':'block'} w='100%'>
                 <Footer />
             </GridItem>
         </Grid>
