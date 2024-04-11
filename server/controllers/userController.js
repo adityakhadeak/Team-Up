@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken'
 import OtpModel from "../models/OtpModel.js";
 import sendMail from "../helper/mailer.js";
 import { oneMinuteExpiryCheck, threeMinuteExpiryCheck } from "../helper/otpValidate.js";
+import PasswordResetModel from "../models/PasswordResetModel.js";
+import Randomstring from "randomstring";
 
 export const registerController = async (req, res) => {
 
@@ -239,3 +241,52 @@ export const verifyOTPController = async (req, res) => {
         })
     }
 }
+
+export const forgotPasswordLinkGenerator = async (req, res) => {
+        try {
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Errors',
+                    errors: errors.array()
+                })
+            }
+    
+    
+            const { email } = req.body;
+    
+            const userData = await UserModel.findOne({ email })
+    
+            if (!userData) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'User with this email not registered',
+                })
+            }
+    
+            const randomString=  Randomstring.generate()
+    
+    
+            
+            const newPassToken = await PasswordResetModel.findOneAndUpdate(
+                { user_id: userData._id },
+                { token: randomString },
+                { upsert: true, new: true, setDefaultsOnInsert: true }
+            )
+            const msg = `<p>Hi <b>${userData.firstname}</b> </br> <h1>Please click <a href=http://localhost:4000/api/auth/reset-password?token=${randomString}>here</a> to reset your password</h1></p>`
+    
+           await sendMail(email, 'Reset Password', msg)
+            res.status(200).json({
+                success: true,
+                message: "Password reset link is send to your registered email,please check it"
+            })
+    
+        } catch (error) {
+            console.log(error.message)
+            res.status(400).json({
+                success: false,
+                message: "Internal server error"
+            })
+        }
+    }
