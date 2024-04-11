@@ -5,6 +5,10 @@ const otpSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         required: true
     },
+    otp:{
+        type:Number,
+        required:true
+    },
     timestamp: {
         type: Date,
         default: Date.now(),

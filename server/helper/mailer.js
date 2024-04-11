@@ -1,4 +1,6 @@
 import nodemailer from 'nodemailer'
+import dotenv from 'dotenv'
+dotenv.config()
 
 const config = {
     service: "gmail",
@@ -7,13 +9,12 @@ const config = {
         pass: process.env.PASS
     }
 }
-
 const transporter=nodemailer.createTransport(config)
 
  const sendMail= async(email,subject,content)=>{
 
     try {
-        
+        console.log(email)
         let message = {
             from: process.env.EMAIL,
             to: email,

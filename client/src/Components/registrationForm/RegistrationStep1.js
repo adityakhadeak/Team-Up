@@ -28,8 +28,8 @@ const RegistrationStep1 = () => {
     }),
     onSubmit: (values, actions) => {
       if (!formik.errors.email && !formik.errors.password && !formik.errors.confirmpass) {
-        setRegistrationStep(2);
         setUserRegistrationInfo({ ...userRegistrationInfo, email: formik.values.email, password: formik.values.password })
+        setRegistrationStep(2);
         // Set registration step to 2 only if there are no errors
       } actions.resetForm()
     }
@@ -37,7 +37,6 @@ const RegistrationStep1 = () => {
 
   const handlePasswordClick = () => setShowPassword(!showPassword);
   const handleConfirmPasswordClick = () => setShowConfirmPassword(!showConfirmPassword);
-  const toast = useToast()
   return (
     <Box height='100%' display={'flex'} justifyContent={'center'} alignItems={'center'}>
       <Box width={{ base: '80%', md: '50%' }} height='690px' boxShadow='0px 0px 10px 0px #e5e5e5' rounded='md' bg='white' padding='35px' my='20px' borderRadius='10px'>

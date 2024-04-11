@@ -4,9 +4,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { FcGoogle } from 'react-icons/fc';
 import { RegistrationContext } from '../../Context/RegistrationContext.js';
+import { UserDataContext } from '../../Context/UserDataContext.js';
 const RegistrationStep2 = () => {
-  const { setRegistrationStep, registrationStep, setUserRegistrationInfo, userRegistrationInfo, success, handleRegistration } = useContext(RegistrationContext)
-
+  const { setRegistrationStep,setSuccess, registrationStep, setUserRegistrationInfo, userRegistrationInfo, success, handleRegistration, handleOTPGenerate } = useContext(RegistrationContext)
+  const { loggedUserData } = useContext(UserDataContext)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
@@ -14,18 +15,26 @@ const RegistrationStep2 = () => {
       if (isSubmitting) {
         try {
           await handleRegistration();
+
+          setUserRegistrationInfo({ username: '', password: '', email: '', firstname: '', lastname: '' });
           setIsSubmitting(false); // Reset submitting state after handleRegistration is completed
-          setRegistrationStep(success ? 3 : 1);
         } catch (error) {
           // Handle error
           setIsSubmitting(false); // Reset submitting state on error
         }
       }
     };
-
     submitRegistration();
-  }, [isSubmitting, success, handleRegistration, setRegistrationStep, setUserRegistrationInfo]);
+  }, [isSubmitting, handleRegistration, setRegistrationStep, setUserRegistrationInfo]);
 
+  useEffect(() => {
+    if (success != undefined) {
+      setRegistrationStep(success ? 3 : 1);
+      if (success)
+        handleOTPGenerate(loggedUserData.email)
+        setSuccess()
+    }
+  }, [success])
 
   const formik = useFormik({
     initialValues: {
@@ -44,12 +53,10 @@ const RegistrationStep2 = () => {
       if (!formik.errors.username && !formik.errors.firstname && !formik.errors.lastname) {
         setUserRegistrationInfo({ ...userRegistrationInfo, username: formik.values.username, firstname: formik.values.firstname, lastname: formik.values.lastname })
         setIsSubmitting(true)
-        // Set registration step to 2 only if there are no errors
       } actions.resetForm()
     }
   })
 
-  const toast = useToast()
   return (
     <Box height='100%' display={'flex'} justifyContent={'center'} alignItems={'center'}>
       <Box width={{ base: '80%', md: '50%' }} height='550px' boxShadow='0px 0px 10px 0px #e5e5e5' rounded='md' bg='white' padding='35px' my='20px' borderRadius='10px'>

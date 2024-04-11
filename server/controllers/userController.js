@@ -118,7 +118,7 @@ const generateOtp = async () => {
     return Math.floor(1000 + Math.random() * 9000)
 }
 export const sendOTPController = async (req, res) => {
-
+console.log(req.body.email)
     try {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -150,7 +150,6 @@ export const sendOTPController = async (req, res) => {
 
 
         const oldOTP = await OtpModel.findOne({ user_id: userData._id })
-
         if (oldOTP) {
             const toSendNextOTP = await oneMinuteExpiryCheck(oldOTP.timestamp)
 
@@ -163,16 +162,15 @@ export const sendOTPController = async (req, res) => {
         }
 
         const generatedOTP = await generateOtp()
-
         const timeNow = new Date().getTime()
         const newOtp = await OtpModel.findOneAndUpdate(
             { user_id: userData._id },
-            { otp: generatedOTP, timestamps: new Date(timeNow) },
+            { otp: generatedOTP, timestamp: new Date(timeNow) },
             { upsert: true, new: true, setDefaultsOnInsert: true }
         )
         const msg = `<p>Hi <b>${userData.username}</b></br><h1>${generatedOTP}</h1></p>`
 
-        sendMail(email, 'otp', msg)
+       await sendMail(email, 'otp', msg)
         res.status(200).json({
             success: true,
             message: "Verification otp has been sent to mail"
@@ -199,7 +197,8 @@ export const verifyOTPController = async (req, res) => {
         }
 
         const { user_id, otp } = req.body
-
+        console.log(user_id)
+        console.log(otp)
         const existOTP = await OtpModel.findOne({
             user_id,
             otp

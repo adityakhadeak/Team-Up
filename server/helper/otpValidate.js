@@ -2,11 +2,9 @@
 export const oneMinuteExpiryCheck=async(otpTime)=>{
     try {
         const currentDate=new Date()
-
         var differnceInTime=(otpTime-currentDate.getTime())/1000
 
         differnceInTime/=60;
-
         if(Math.abs(differnceInTime)>1)return true
 
         return false

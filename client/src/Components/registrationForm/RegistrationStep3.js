@@ -5,28 +5,25 @@ import { PinInput, PinInputField } from '@chakra-ui/react'
 import * as Yup from 'yup'
 import { FcGoogle } from 'react-icons/fc';
 import { RegistrationContext } from '../../Context/RegistrationContext.js';
+import { UserDataContext } from '../../Context/UserDataContext.js';
 const RegistrationStep3 = () => {
-    const { setUserRegistrationInfo, userRegistrationInfo } = useContext(RegistrationContext)
-    const toast = useToast(); // You need to use toast
+    const { handleOTPVerify,handleOTPGenerate } = useContext(RegistrationContext)
+    const { loggedUserData } = useContext(UserDataContext)
 
     const formik = useFormik({
         initialValues: {
-            otp: "", // Ensure that the initial value is correctly set
+            otp: "",
         },
         validationSchema: Yup.object({
-            otp: Yup.string().required('Please enter your OTP'), // Ensure that the schema matches the type of input expected
+            otp: Yup.string().required('Please enter your OTP'),
         }),
         onSubmit: (values, actions) => {
             if (!formik.errors.otp) {
-                setUserRegistrationInfo({ ...userRegistrationInfo, otp: formik.values.otp })
+                console.log(loggedUserData.user_id)
+                console.log(formik.values.otp)
+                handleOTPVerify(formik.values.otp, loggedUserData.user_id)
                 // You may add additional logic here if needed
-                toast({
-                    title: "OTP Verified",
-                    description: "Your OTP has been successfully verified.",
-                    status: "success",
-                    duration: 3000,
-                    isClosable: true,
-                });
+
             }
             actions.resetForm();
         },
@@ -37,22 +34,24 @@ const RegistrationStep3 = () => {
             <Box width={{ base: '70%', md: '30%' }} height='300px' boxShadow='0px 0px 10px 0px #e5e5e5' rounded='md' bg='white' padding='35px' my='20px' borderRadius='10px'>
                 <form onSubmit={formik.handleSubmit}>
                     <FormControl isInvalid={formik.errors.otp && formik.touched.otp} p='2px' my='5px'>
-                        <FormLabel>OTP</FormLabel>
+                        <FormLabel textAlign={'center'}>OTP</FormLabel>
                         <Box display='flex' justifyContent='center' flexDirection='column' alignItems='center'>
                             <HStack>
-                                <PinInput name='otp' type='alphanumeric' >
-                                    <PinInputField name='otp' onChange={formik.handleChange} value={formik.values.otp} />
-                                    <PinInputField name='otp' onChange={formik.handleChange} value={formik.values.otp} />
-                                    <PinInputField name='otp' onChange={formik.handleChange} value={formik.values.otp} />
-                                    <PinInputField name='otp' onChange={formik.handleChange} value={formik.values.otp} />
+                                <PinInput value={formik.values.otp} onChange={(value) => formik.setFieldValue('otp', value)}>
+                                    <PinInputField />
+                                    <PinInputField />
+                                    <PinInputField />
+                                    <PinInputField />
                                 </PinInput>
                             </HStack>
                         </Box>
-                        <Box h='20px'>
+                        <Box  display='flex' justifyContent='center' h='20px'>
                             <FormErrorMessage>{formik.errors.otp}</FormErrorMessage>
                         </Box>
                     </FormControl>
-
+                    <Box display='flex' justifyContent='end' alignItems='center' width='100%' py='2px' my='5px'>
+                        <Text as='button' onClick={()=>handleOTPGenerate(loggedUserData.email)} fontSize={'15px'}>Re-send OTP</Text>
+                    </Box>
                     <Box display='flex' justifyContent='center' alignItems='center' width='100%' py='10px' my='15px'>
                         <Button type='submit' width='90%' height='45px' borderRadius='20px' colorScheme='linkedin'>Verify</Button>
                     </Box>

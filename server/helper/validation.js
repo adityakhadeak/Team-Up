@@ -16,7 +16,7 @@ export const loginValidator=[
 
 
 export const otpMailValidator=[
-    check('username','Username is required').not().notEmpty().isString(),
+    check('email','Email is required').not().notEmpty().isEmail().normalizeEmail({gmail_remove_dots:true}),
     // check('otp','OTP is required').isNumeric().isLength({max:4,max:4})
 ]
 
