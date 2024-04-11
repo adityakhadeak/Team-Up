@@ -6,8 +6,8 @@ import * as Yup from 'yup'
 import { FcGoogle } from 'react-icons/fc';
 import { RegistrationContext } from '../../Context/RegistrationContext.js';
 import { UserDataContext } from '../../Context/UserDataContext.js';
-const RegistrationStep3 = () => {
-    const { handleOTPVerify,handleOTPGenerate } = useContext(RegistrationContext)
+const OtpInputPage = (props) => {
+    const { handleOTPVerify,handleOTPGenerate,setPasswordRecoverStep } = useContext(RegistrationContext)
     const { loggedUserData } = useContext(UserDataContext)
 
     const formik = useFormik({
@@ -17,12 +17,18 @@ const RegistrationStep3 = () => {
         validationSchema: Yup.object({
             otp: Yup.string().required('Please enter your OTP'),
         }),
-        onSubmit: (values, actions) => {
+        onSubmit:async (values, actions) => {
             if (!formik.errors.otp) {
                 console.log(loggedUserData.user_id)
                 console.log(formik.values.otp)
-                handleOTPVerify(formik.values.otp, loggedUserData.user_id)
+               const goToNextStep= await handleOTPVerify(formik.values.otp, loggedUserData.user_id,props.type)
                 // You may add additional logic here if needed
+                console.log(goToNextStep)
+                if(props.type==='other'){
+
+                    setPasswordRecoverStep(goToNextStep?3:2)
+                }
+                
 
             }
             actions.resetForm();
@@ -33,7 +39,7 @@ const RegistrationStep3 = () => {
         <Box height='100%' display='flex' justifyContent='center' alignItems='center'>
             <Box width={{ base: '70%', md: '30%' }} height='300px' boxShadow='0px 0px 10px 0px #e5e5e5' rounded='md' bg='white' padding='35px' my='20px' borderRadius='10px'>
                 <form onSubmit={formik.handleSubmit}>
-                    <FormControl isInvalid={formik.errors.otp && formik.touched.otp} p='2px' my='5px'>
+                    <FormControl isInvalid={formik.errors.otp} p='2px' my='5px'>
                         <FormLabel textAlign={'center'}>OTP</FormLabel>
                         <Box display='flex' justifyContent='center' flexDirection='column' alignItems='center'>
                             <HStack>
@@ -50,7 +56,7 @@ const RegistrationStep3 = () => {
                         </Box>
                     </FormControl>
                     <Box display='flex' justifyContent='end' alignItems='center' width='100%' py='2px' my='5px'>
-                        <Text as='button' onClick={()=>handleOTPGenerate(loggedUserData.email)} fontSize={'15px'}>Re-send OTP</Text>
+                        <Text  onClick={()=>handleOTPGenerate(props.email,props.type)} fontSize={'15px'}>Re-send OTP</Text>
                     </Box>
                     <Box display='flex' justifyContent='center' alignItems='center' width='100%' py='10px' my='15px'>
                         <Button type='submit' width='90%' height='45px' borderRadius='20px' colorScheme='linkedin'>Verify</Button>
@@ -61,4 +67,4 @@ const RegistrationStep3 = () => {
     )
 }
 
-export default RegistrationStep3
+export default OtpInputPage

@@ -4,7 +4,7 @@ import { Link as ReactRouterLink } from 'react-router-dom'
 import RegistrationStep1 from '../Components/registrationForm/RegistrationStep1'
 import { RegistrationContext } from '../Context/RegistrationContext.js'
 import RegistrationStep2 from '../Components/registrationForm/RegistrationStep2.js'
-import RegistrationStep3 from '../Components/registrationForm/RegistrationStep3.js'
+import OtpInputPage from '../Components/otpPage/OtpInput.js'
 const Registration = () => {
 
   const { setRegistrationStep, registrationStep } = useContext(RegistrationContext)
@@ -26,8 +26,8 @@ const Registration = () => {
       </GridItem>
       <GridItem >
         {registrationStep==1 && <RegistrationStep1 />}
-        {registrationStep==2 && <RegistrationStep2 />}
-        {registrationStep==3 && <RegistrationStep3/>}
+        {registrationStep==2 && <RegistrationStep2  />}
+        {registrationStep==3 && <OtpInputPage type={'verification'}/>}
       </GridItem>
     </Grid>
   )

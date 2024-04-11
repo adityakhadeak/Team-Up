@@ -3,10 +3,11 @@ import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input, InputGrou
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { RegistrationContext } from '../../Context/RegistrationContext.js';
-const PassRecoverStep1 = () => {
-    const { passwordRecoverStep, setPasswordRecoverStep } = useContext(RegistrationContext)
+const PassRecoverStep1 = (props) => {
+    const { passwordRecoverStep, setPasswordRecoverStep,handleOTPGenerate } = useContext(RegistrationContext)
 
 
+    
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -19,7 +20,9 @@ const PassRecoverStep1 = () => {
         }),
         onSubmit: (values, actions) => {
             if (!formik.errors.email) {
-                setPasswordRecoverStep(2);
+                props.setEmail(formik.values.email)
+                const goToNextStep=handleOTPGenerate(formik.values.email,'other')
+                setPasswordRecoverStep(goToNextStep?2:1);
             } actions.resetForm()
         }
     })

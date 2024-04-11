@@ -1,7 +1,7 @@
 import { Box, Button, FormControl, FormLabel, Grid, GridItem, Input, Text, InputRightElement, InputGroup, FormErrorMessage } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { FcGoogle } from "react-icons/fc";
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link, Link as ReactRouterLink } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
@@ -61,7 +61,7 @@ const Login = () => {
                 <FormErrorMessage>{formik.errors.password}</FormErrorMessage>
 
               </FormControl>
-              <Text as='a' href="/recoverpassword" fontWeight='500' color='#0a66c2' >Forgot password?</Text>
+              <Link style={{color:'#0a66c2'}} to="/recoverpassword" fontWeight='500'>Forgot password?</Link>
               <Box display='flex' justifyContent={'center'} alignItems={'center'} width='100%' py='10px' my='20px'>
                 <Button width='90%' height='45px' borderRadius='20px' colorScheme='linkedin' type='submit' onClick={() =>
                   toast({

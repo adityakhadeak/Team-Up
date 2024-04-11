@@ -5,8 +5,6 @@ import jwt from 'jsonwebtoken'
 import OtpModel from "../models/OtpModel.js";
 import sendMail from "../helper/mailer.js";
 import { oneMinuteExpiryCheck, threeMinuteExpiryCheck } from "../helper/otpValidate.js";
-import PasswordResetModel from "../models/PasswordResetModel.js";
-import Randomstring from "randomstring";
 
 export const registerController = async (req, res) => {
 
@@ -120,7 +118,6 @@ const generateOtp = async () => {
     return Math.floor(1000 + Math.random() * 9000)
 }
 export const sendOTPController = async (req, res) => {
-console.log(req.body.email)
     try {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -132,7 +129,7 @@ console.log(req.body.email)
         }
 
 
-        const { email } = req.body;
+        const { email, type } = req.body;
 
         const userData = await UserModel.findOne({ email })
 
@@ -143,14 +140,14 @@ console.log(req.body.email)
             })
         }
 
-        if (userData.isverified == 1) {
-            return res.status(400).json({
-                success: false,
-                message: "Email Id " + email + " is already verified"
-            })
+        if (type === 'verification') {
+            if (userData.isverified == 1) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Email Id " + email + " is already verified"
+                })
+            }
         }
-
-
         const oldOTP = await OtpModel.findOne({ user_id: userData._id })
         if (oldOTP) {
             const toSendNextOTP = await oneMinuteExpiryCheck(oldOTP.timestamp)
@@ -172,10 +169,10 @@ console.log(req.body.email)
         )
         const msg = `<p>Hi <b>${userData.username}</b></br><h1>${generatedOTP}</h1></p>`
 
-       await sendMail(email, 'otp', msg)
+        await sendMail(email, 'otp', msg)
         res.status(200).json({
             success: true,
-            message: "Verification otp has been sent to mail"
+            message: "Otp has been sent to mail"
         })
 
     } catch (error) {
@@ -198,9 +195,8 @@ export const verifyOTPController = async (req, res) => {
             })
         }
 
-        const { user_id, otp } = req.body
-        console.log(user_id)
-        console.log(otp)
+        const { user_id, otp, type } = req.body
+
         const existOTP = await OtpModel.findOne({
             user_id,
             otp
@@ -219,6 +215,13 @@ export const verifyOTPController = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: "OTP Expired"
+            })
+        }
+
+        if (type != 'verification') {
+            return res.status(200).json({
+                success: true,
+                message: "Correct OTP"
             })
         }
 
@@ -242,51 +245,46 @@ export const verifyOTPController = async (req, res) => {
     }
 }
 
-export const forgotPasswordLinkGenerator = async (req, res) => {
-        try {
-            const errors = validationResult(req)
-            if (!errors.isEmpty()) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Errors',
-                    errors: errors.array()
-                })
-            }
-    
-    
-            const { email } = req.body;
-    
-            const userData = await UserModel.findOne({ email })
-    
-            if (!userData) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'User with this email not registered',
-                })
-            }
-    
-            const randomString=  Randomstring.generate()
-    
-    
-            
-            const newPassToken = await PasswordResetModel.findOneAndUpdate(
-                { user_id: userData._id },
-                { token: randomString },
-                { upsert: true, new: true, setDefaultsOnInsert: true }
-            )
-            const msg = `<p>Hi <b>${userData.firstname}</b> </br> <h1>Please click <a href=http://localhost:4000/api/auth/reset-password?token=${randomString}>here</a> to reset your password</h1></p>`
-    
-           await sendMail(email, 'Reset Password', msg)
-            res.status(200).json({
-                success: true,
-                message: "Password reset link is send to your registered email,please check it"
-            })
-    
-        } catch (error) {
-            console.log(error.message)
-            res.status(400).json({
+export const resetPasswordController = async (req, res) => {
+    try {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
                 success: false,
-                message: "Internal server error"
+                message: 'Errors',
+                errors: errors.array()
             })
         }
+        const { email, password } = req.body
+
+        const userData = await UserModel.findOne({ email })
+
+        if (!userData) {
+            return res.status(404).json({
+                success: false,
+                message: "User doesn't exist"
+            })
+        }
+
+        const encryptedPass = await bcrypt.hash(password, 10)
+
+        await UserModel.findByIdAndUpdate({ _id: userData._id },
+            {
+                $set: {
+                    password: encryptedPass
+                }
+            })
+
+            res.status(200).json({
+                success: true,
+                message: "Password Updated"
+            })
+
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).json({
+            success: false,
+            message: "Internal server error"
+        })
     }
+}

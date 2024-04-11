@@ -6,7 +6,7 @@ import { FcGoogle } from 'react-icons/fc';
 import { RegistrationContext } from '../../Context/RegistrationContext.js';
 import { UserDataContext } from '../../Context/UserDataContext.js';
 const RegistrationStep2 = () => {
-  const { setRegistrationStep,setSuccess, registrationStep, setUserRegistrationInfo, userRegistrationInfo, success, handleRegistration, handleOTPGenerate } = useContext(RegistrationContext)
+  const { setRegistrationStep, setSuccess, registrationStep, setUserRegistrationInfo, userRegistrationInfo, success, handleRegistration, handleOTPGenerate } = useContext(RegistrationContext)
   const { loggedUserData } = useContext(UserDataContext)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -14,7 +14,10 @@ const RegistrationStep2 = () => {
     const submitRegistration = async () => {
       if (isSubmitting) {
         try {
-          await handleRegistration();
+          const goToNextStep = await handleRegistration();
+          setRegistrationStep(goToNextStep ? 3 : 1);
+          if (goToNextStep)
+            handleOTPGenerate(userRegistrationInfo.email,'verification')
 
           setUserRegistrationInfo({ username: '', password: '', email: '', firstname: '', lastname: '' });
           setIsSubmitting(false); // Reset submitting state after handleRegistration is completed
@@ -27,14 +30,14 @@ const RegistrationStep2 = () => {
     submitRegistration();
   }, [isSubmitting, handleRegistration, setRegistrationStep, setUserRegistrationInfo]);
 
-  useEffect(() => {
-    if (success != undefined) {
-      setRegistrationStep(success ? 3 : 1);
-      if (success)
-        handleOTPGenerate(loggedUserData.email)
-        setSuccess()
-    }
-  }, [success])
+  // useEffect(() => {
+  //   if (success != undefined) {
+  //     setRegistrationStep(success ? 3 : 1);
+  //     if (success)
+  //       handleOTPGenerate(loggedUserData.email)
+  //       setSuccess()
+  //   }
+  // }, [success])
 
   const formik = useFormik({
     initialValues: {

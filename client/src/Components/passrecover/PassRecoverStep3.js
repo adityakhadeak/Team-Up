@@ -3,8 +3,8 @@ import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input, InputGrou
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { RegistrationContext } from '../../Context/RegistrationContext.js';
-const PassRecoverStep3 = () => {
-    const { passwordRecoverStep, setPasswordRecoverStep } = useContext(RegistrationContext)
+const PassRecoverStep3 = (props) => {
+    const { passwordRecoverStep, setPasswordRecoverStep,handleResetPassword } = useContext(RegistrationContext)
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -17,13 +17,14 @@ const PassRecoverStep3 = () => {
         validateOnBlur: false,
         validateOnChange: true,
         validationSchema: Yup.object({
-            password: Yup.string().required('Password Required').min(6, 'Password should atleast contain 6 character').matches(/.*[!@#$%^&*()_+{}\[\]:;'"\\|<,>.?/].*/, 'Password should have at least one special character'),
-
+            password: Yup.string().required('Password Required').min(6, 'Password should contain at least 6 characters').matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+{}\[\]:;'"\\|<,>.?/]).*$/,'Password should contain at least one uppercase letter, one lowercase letter, and one special character'),
+          
             confirmpass: Yup.string().required("Confirm Password Required").oneOf([Yup.ref('password'), null], 'Passwords must match') // Ensure it matches the 'password' field
 
         }),
-        onSubmit: (values, actions) => {
+        onSubmit:async (values, actions) => {
             if (!formik.errors.email && !formik.errors.password && !formik.errors.confirmpass) {
+                const goToNextStep= await handleResetPassword(props.email,formik.values.password)
             } actions.resetForm()
         }
     })

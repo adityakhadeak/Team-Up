@@ -17,13 +17,17 @@ export const loginValidator=[
 
 export const otpMailValidator=[
     check('email','Email is required').not().notEmpty().isEmail().normalizeEmail({gmail_remove_dots:true}),
+    check('type','Type is required').not().notEmpty().isString(),
     // check('otp','OTP is required').isNumeric().isLength({max:4,max:4})
 ]
 
 export const verifyOTPValidator=[
     check('user_id','user_id is required').not().notEmpty().isString(),
-    check('otp','OTP is required').not().isEmpty().isNumeric().isLength({max:4,max:4})
+    check('otp','OTP is required').not().notEmpty().isNumeric().isLength({max:4,max:4}),
+    check('type','Type is required').not().notEmpty().isString(),
+
 ]
-export const forgotPasswordValidator=[
+export const resetPasswordValidator=[
     check('email','Email is required').not().notEmpty().isEmail().normalizeEmail({gmail_remove_dots:true}),
+    check('password','Password must be of atleast one special and 6 characters long').not().notEmpty().isStrongPassword({minLength:6,minLowercase:1,minUppercase:1,minNumbers:1,minSymbols:1}),
 ]
