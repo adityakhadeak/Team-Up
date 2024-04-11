@@ -1,6 +1,6 @@
 import express from 'express'
-import { loginController, registerController, sendOTPController, verifyOTPController } from '../controllers/userController.js'
-import { loginValidator, otpMailValidator, registerValidation, verifyOTPValidator } from '../helper/validation.js'
+import { forgotPasswordLinkGenerator, loginController, registerController, sendOTPController, verifyOTPController } from '../controllers/userController.js'
+import { forgotPasswordValidator, loginValidator, otpMailValidator, registerValidation, verifyOTPValidator } from '../helper/validation.js'
 
 const userRouter=express()
 
@@ -11,4 +11,5 @@ userRouter.post('/register',registerValidation, registerController)
 userRouter.post('/send-otp',otpMailValidator,sendOTPController)
 userRouter.post('/verify-otp',verifyOTPValidator,verifyOTPController)
 
+userRouter.post('/forgot-password',forgotPasswordValidator,forgotPasswordLinkGenerator)
 export default userRouter
