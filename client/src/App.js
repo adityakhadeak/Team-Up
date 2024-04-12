@@ -12,7 +12,9 @@ import Postproject from './Pages/Postproject';
 import Findproject from './Pages/Findproject';
 import Footer from './Components/footer'
 import PassRecover from './Pages/PassRecover';
-import Explore from './Pages/Explore';
+import Dashboarduser from './Pages/UserProfile/Dashboarduser';
+import Edituserinfo from './Pages/UserProfile/Edituserinfo';
+import Applicationstatus from './Pages/UserProfile/Applicationstatus';import Explore from './Pages/Explore';
 
 function App() {
 
@@ -28,6 +30,9 @@ function App() {
 
         <Route path='/footer' element={<Footer />} />
         <Route path='/recoverpassword' element={<PassRecover />} />
+        <Route path='/Dashboard' element={<Dashboarduser/>}/>
+        <Route path='/applicationstatus' element={<Applicationstatus/>}/>
+        <Route path='/edituser' element={<Edituserinfo/>}/>
       </Route >
     )
   )
