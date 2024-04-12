@@ -32,7 +32,7 @@ const Footer = () => {
         <Box width='74%' gap='4' height='40px' my='15px' display='flex' justifyContent='center' alignItems='center' >
           <Box transition='all' transitionDuration='0.2s' _hover={{ fontSize: '20px' }} textAlign='center' width='20px' mx='5px'> <Text cursor='pointer' as='a'>< FaInstagram /></Text></Box>
           <Box transition='all' transitionDuration='0.2s' _hover={{ fontSize: '20px' }} textAlign='center' width='20px' mx='5px'> <Text cursor='pointer' as='a' ><FaLinkedinIn /></Text></Box>
-          <Box transition='all' transitionDuration='0.2s' _hover={{ fontSize: '20px' }} textAlign='center' width='20px' mx='5px'> <Text cursor='pointer' as='a' ><FaGithub /></Text></Box>
+          <Box transition='all' transitionDuration='0.2s' _hover={{ fontSize: '20px' }} textAlign='center' width='20px' mx='5px'> <Text cursor='pointer' as='a' ><FaGithub /></Text></Box>        
 
         </Box>
         <Box width='74%' gap='2' my='15px' display='flex' justifyContent='center' alignItems='center' >

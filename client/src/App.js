@@ -12,7 +12,9 @@ import Postproject from './Pages/Postproject';
 import Findproject from './Pages/Findproject';
 import Footer from './Components/footer'
 import PassRecover from './Pages/PassRecover';
-
+import Dashboarduser from './Pages/UserProfile/Dashboarduser';
+import Edituserinfo from './Pages/UserProfile/Edituserinfo';
+import Applicationstatus from './Pages/UserProfile/Applicationstatus';
 function App() {
 
   const router = createBrowserRouter(
@@ -25,6 +27,9 @@ function App() {
         <Route path='/findproj' element={<Findproject />} />
         <Route path='/footer' element={<Footer />} />
         <Route path='/recoverpassword' element={<PassRecover />} />
+        <Route path='/Dashboard' element={<Dashboarduser/>}/>
+        <Route path='/applicationstatus' element={<Applicationstatus/>}/>
+        <Route path='/edituser' element={<Edituserinfo/>}/>
       </Route >
     )
   )

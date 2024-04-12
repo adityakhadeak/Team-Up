@@ -58,6 +58,7 @@ export const registerController = async (req, res) => {
             message: "Internal server error"
         })
     }
+    console.log(message);
 }
 export const loginController = async (req, res) => {
 
