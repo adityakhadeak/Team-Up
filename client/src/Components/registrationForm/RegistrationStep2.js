@@ -1,13 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, useToast } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input} from '@chakra-ui/react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import { FcGoogle } from 'react-icons/fc';
-import { RegistrationContext } from '../../Context/RegistrationContext.js';
-import { UserDataContext } from '../../Context/UserDataContext.js';
+import { AuthContext } from '../../Context/AuthContext.js';
 const RegistrationStep2 = () => {
-  const { setRegistrationStep, setSuccess, registrationStep, setUserRegistrationInfo, userRegistrationInfo, success, handleRegistration, handleOTPGenerate } = useContext(RegistrationContext)
-  const { loggedUserData } = useContext(UserDataContext)
+  const { setRegistrationStep, setUserRegistrationInfo, userRegistrationInfo,  handleRegistration, handleOTPGenerate } = useContext(AuthContext)
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
@@ -28,6 +25,7 @@ const RegistrationStep2 = () => {
       }
     };
     submitRegistration();
+    // eslint-disable-next-line
   }, [isSubmitting, handleRegistration, setRegistrationStep, setUserRegistrationInfo]);
 
   // useEffect(() => {

@@ -4,10 +4,10 @@ import { useFormik } from 'formik';
 import { PinInput, PinInputField } from '@chakra-ui/react'
 import * as Yup from 'yup'
 import { FcGoogle } from 'react-icons/fc';
-import { RegistrationContext } from '../../Context/RegistrationContext.js';
+import { AuthContext } from '../../Context/AuthContext.js';
 import { UserDataContext } from '../../Context/UserDataContext.js';
 const OtpInputPage = (props) => {
-    const { handleOTPVerify,handleOTPGenerate,setPasswordRecoverStep } = useContext(RegistrationContext)
+    const { handleOTPVerify,handleOTPGenerate,setPasswordRecoverStep } = useContext(AuthContext)
     const { loggedUserData } = useContext(UserDataContext)
 
     const formik = useFormik({
