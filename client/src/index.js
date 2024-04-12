@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import { ChakraProvider } from '@chakra-ui/react'
-import { RegistrationContextProvider } from './Context/RegistrationContext.js';
+import { AuthContextProvider } from './Context/AuthContext.js';
 import { NavFixedContextProvider } from './Context/NavFixedContext.js';
 import { UserDataContextProvider } from './Context/UserDataContext.js';
 
@@ -12,11 +12,11 @@ root.render(
   <React.StrictMode>
     <NavFixedContextProvider>
       <UserDataContextProvider>
-        <RegistrationContextProvider>
+        <AuthContextProvider>
           <ChakraProvider>
             <App />
           </ChakraProvider>
-        </RegistrationContextProvider>
+        </AuthContextProvider>
       </UserDataContextProvider>
     </NavFixedContextProvider>
   </React.StrictMode>

@@ -1,12 +1,14 @@
-import { Box, Button, FormControl, FormLabel, Grid, GridItem, Input, Text, InputRightElement, InputGroup, FormErrorMessage } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Box, Button, FormControl, FormLabel, Grid, GridItem, Input, Text, InputRightElement, InputGroup, FormErrorMessage, useConst } from '@chakra-ui/react'
+import React, { useContext, useState } from 'react'
 import { FcGoogle } from "react-icons/fc";
 import { Link, Link as ReactRouterLink } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
+import { AuthContext } from '../Context/AuthContext';
 const Login = () => {
 
+  const {handleLogin}=useContext(AuthContext)
   const formik=useFormik({
     initialValues:{
       username:"",
@@ -19,7 +21,11 @@ const Login = () => {
       password:Yup.string().required('Password Required')
     }),
     onSubmit:(values,actions)=>{
-    console.log(values)
+      if(!formik.errors.password && !formik.errors.username)
+      {
+        const goToNextStep=handleLogin(formik.values.username,formik.values.password)
+        
+      }
       actions.resetForm()
     }
   })
@@ -63,15 +69,7 @@ const Login = () => {
               </FormControl>
               <Link style={{color:'#0a66c2'}} to="/recoverpassword" fontWeight='500'>Forgot password?</Link>
               <Box display='flex' justifyContent={'center'} alignItems={'center'} width='100%' py='10px' my='20px'>
-                <Button width='90%' height='45px' borderRadius='20px' colorScheme='linkedin' type='submit' onClick={() =>
-                  toast({
-                    title: 'Log in Successfully.',
-
-                    status: 'success',
-                    duration: 9000,
-                    isClosable: true,
-                  })
-                }>Sign in</Button>
+                <Button width='90%' height='45px' borderRadius='20px' colorScheme='linkedin' type='submit'>Sign in</Button>
               </Box>
 
             </form>

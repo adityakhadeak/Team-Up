@@ -2,9 +2,9 @@ import React, { useContext, useState } from 'react'
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
-import { RegistrationContext } from '../../Context/RegistrationContext.js';
+import { AuthContext } from '../../Context/AuthContext.js';
 const PassRecoverStep1 = (props) => {
-    const { passwordRecoverStep, setPasswordRecoverStep,handleOTPGenerate } = useContext(RegistrationContext)
+    const { passwordRecoverStep, setPasswordRecoverStep,handleOTPGenerate } = useContext(AuthContext)
 
 
     

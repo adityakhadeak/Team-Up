@@ -1,13 +1,13 @@
 import { Box, Button, Grid, GridItem, Text, } from '@chakra-ui/react'
-import React, { useState, useContext } from 'react'
+import React, {  useContext } from 'react'
 import { Link as ReactRouterLink } from 'react-router-dom'
 import RegistrationStep1 from '../Components/registrationForm/RegistrationStep1'
-import { RegistrationContext } from '../Context/RegistrationContext.js'
+import { AuthContext } from '../Context/AuthContext.js'
 import RegistrationStep2 from '../Components/registrationForm/RegistrationStep2.js'
 import OtpInputPage from '../Components/otpPage/OtpInput.js'
 const Registration = () => {
 
-  const { setRegistrationStep, registrationStep } = useContext(RegistrationContext)
+  const { registrationStep } = useContext(AuthContext)
 
   return (
     <Grid fontFamily={'Raleway'} height={'100%'} templateRows={'auto'} templateColumns={{ base: '1fr', md: '1fr 2fr' }} >
@@ -25,9 +25,9 @@ const Registration = () => {
         </Box>
       </GridItem>
       <GridItem >
-        {registrationStep==1 && <RegistrationStep1 />}
-        {registrationStep==2 && <RegistrationStep2  />}
-        {registrationStep==3 && <OtpInputPage type={'verification'}/>}
+        {registrationStep===1 && <RegistrationStep1 />}
+        {registrationStep===2 && <RegistrationStep2  />}
+        {registrationStep===3 && <OtpInputPage type={'verification'}/>}
       </GridItem>
     </Grid>
   )

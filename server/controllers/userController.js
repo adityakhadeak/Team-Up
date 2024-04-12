@@ -5,8 +5,7 @@ import jwt from 'jsonwebtoken'
 import OtpModel from "../models/OtpModel.js";
 import sendMail from "../helper/mailer.js";
 import { oneMinuteExpiryCheck, threeMinuteExpiryCheck } from "../helper/otpValidate.js";
-import PasswordResetModel from "../models/PasswordResetModel.js";
-import Randomstring from "randomstring";
+
 
 export const registerController = async (req, res) => {
 
@@ -113,7 +112,11 @@ export const loginController = async (req, res) => {
 
 
     } catch (error) {
-
+        console.log(error.message)
+        res.status(400).json({
+            success: false,
+            message: "Internal server error"
+        })
     }
 }
 

@@ -1,19 +1,17 @@
-import { createContext, useCallback, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { BASE_URL } from "../helper.js"
 import { useToast } from '@chakra-ui/react'
 import { UserDataContext } from "./UserDataContext.js";
-export const RegistrationContext = createContext()
+export const AuthContext = createContext()
 
-export const RegistrationContextProvider = (props) => {
+export const AuthContextProvider = (props) => {
 
-    const { loggedUserData, setLoggedUserData } = useContext(UserDataContext)
+    const { setLoggedUserData } = useContext(UserDataContext)
     const toast = useToast()
     const [registrationStep, setRegistrationStep] = useState(1)
     const [passwordRecoverStep, setPasswordRecoverStep] = useState(1)
     const [success, setSuccess] = useState()
     const [userRegistrationInfo, setUserRegistrationInfo] = useState({ username: "", password: "", email: "", firstname: "", lastname: "" })
-
-
 
     const handleRegistration = async () => {
         const response = await fetch(`${BASE_URL}/api/auth/register`, {
@@ -34,17 +32,51 @@ export const RegistrationContextProvider = (props) => {
             duration: 5000,
             isClosable: true
         });
-return resJson.success
+        return resJson.success
 
     }
+
+    const handleLogin = async (username, password) => {
+        const response = await fetch(`${BASE_URL}/api/auth/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password })
+        })
+        const resJson = await response.json()
+        console.log(resJson)
+        if (resJson.success) {
+            setLoggedUserData({
+                user_id: resJson.user._id,
+                username: resJson.user.username,
+                email: resJson.user.email,
+                firstname: resJson.user.username,
+                lastname: resJson.user.username,
+                isverified: resJson.user.isverified
+            })
+        }
+        toast({
+            title: resJson.message,
+            description: resJson.success ? 'Logged In Successfully' : 'Login failed.',
+            status: resJson.success ? 'success' : 'error',
+            duration: 5000,
+            isClosable: true
+        });
+        return resJson.success
+
+    }
+
+
+
     //For Generating the otp
-    const handleOTPGenerate = async (email,type) => {
+    const handleOTPGenerate = async (email, type) => {
         const response = await fetch(`${BASE_URL}/api/auth/send-otp`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email,type })
+            body: JSON.stringify({ email, type })
         })
         const resJson = await response.json()
         console.log(resJson)
@@ -59,13 +91,13 @@ return resJson.success
     }
 
     //To verify the otp
-    const handleOTPVerify = async (otp, user_id,type) => {
+    const handleOTPVerify = async (otp, user_id, type) => {
         const response = await fetch(`${BASE_URL}/api/auth/verify-otp`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ user_id, otp,type })
+            body: JSON.stringify({ user_id, otp, type })
         })
         const resJson = await response.json()
         console.log(resJson)
@@ -79,13 +111,13 @@ return resJson.success
         return resJson.success
     }
 
-    const handleResetPassword=async(email,password)=>{
-        const response=await fetch(`${BASE_URL}/api/auth/reset-password`,{
-            method:"POST",
-            headers:{
+    const handleResetPassword = async (email, password) => {
+        const response = await fetch(`${BASE_URL}/api/auth/reset-password`, {
+            method: "POST",
+            headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email,password })
+            body: JSON.stringify({ email, password })
         })
         const resJson = await response.json()
         console.log(resJson)
@@ -98,7 +130,7 @@ return resJson.success
         });
         return resJson.success
     }
-    return (<RegistrationContext.Provider value={{ passwordRecoverStep, setPasswordRecoverStep, setUserRegistrationInfo, userRegistrationInfo, registrationStep, setRegistrationStep, handleRegistration, success, handleOTPVerify, handleOTPGenerate, setSuccess,handleResetPassword }}>
+    return (<AuthContext.Provider value={{ passwordRecoverStep, setPasswordRecoverStep, setUserRegistrationInfo, userRegistrationInfo, registrationStep, setRegistrationStep, handleRegistration, success, handleOTPVerify, handleOTPGenerate, setSuccess, handleResetPassword, handleLogin }}>
         {props.children}
-    </RegistrationContext.Provider>)
+    </AuthContext.Provider>)
 }

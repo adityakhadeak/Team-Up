@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react'
-import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text, useToast } from '@chakra-ui/react'
+import { Box, Button, FormControl, FormErrorMessage, FormLabel, Input, InputGroup, InputRightElement, Text } from '@chakra-ui/react'
 import { useFormik } from 'formik';
 import * as Yup from 'yup'
 import { FcGoogle } from 'react-icons/fc';
-import { RegistrationContext } from '../../Context/RegistrationContext.js';
+import { AuthContext } from '../../Context/AuthContext.js';
 const RegistrationStep1 = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const { setRegistrationStep, registrationStep, setUserRegistrationInfo, userRegistrationInfo } = useContext(RegistrationContext)
+  const { setRegistrationStep, registrationStep, setUserRegistrationInfo, userRegistrationInfo } = useContext(AuthContext)
 
 
   const formik = useFormik({
