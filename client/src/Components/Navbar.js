@@ -30,7 +30,7 @@ const Navbar = () => {
         <Spacer />
         <Box mx='20px' display='flex' alignItems='center' gap='5' justifyContent='center'>
           <Box >
-            <Link to='/'><Text> Explore</Text></Link>
+            <Link to='/explore'><Text> Explore</Text></Link>
           </Box>
           <Box >
             <Link to='/findproj'><Text> Find Project</Text></Link>
