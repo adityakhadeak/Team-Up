@@ -72,7 +72,7 @@ const handleOptionClick = () => {
         <Box position="absolute" top="100%" right="0%" transform="translateX(-18%)" backgroundColor="white" boxShadow="md" borderRadius="md" >
           <Text   my="8px" border="2px solid blue" p="3px" w="100%" borderLeft="none" borderRight="none" borderTop="none"><Link  onClick={handleOptionClick} to='/edituser'>Edit Profile</Link></Text>
           <Text   my="8px" border="2px solid blue" p="3px" w="100%" borderLeft="none" borderRight="none" borderTop="none"><Link  onClick={handleOptionClick} to='/Dashboard'>Dashboard</Link></Text>
-          <Text  my="8px"  border="2px solid blue" p="3px" w="100%" borderLeft="none" borderRight="none" borderTop="none"><Link onClick={handleOptionClick}  to='/applicationstatus'>Status of Application</Link></Text>
+          <Text  my="8px"  border="2px solid blue" p="3px" w="100%" borderLeft="none" borderRight="none" borderTop="none"><Link onClick={handleOptionClick}  to='/applicationstatus'>My Project Application</Link></Text>
         </Box>
       )}
     </Box>
