@@ -10,7 +10,7 @@ const RootLayout = () => {
     const {isFixed}=useContext(NavFixedContext)
     const location = useLocation();
     return (
-        <Grid height='100vh' templateRows='auto 1fr auto'>
+        <Grid bgColor='#f4f2ee' height='100vh' templateRows='auto 1fr auto'>
             <GridItem  w='100%'>
                 <Navbar />
                 <ScrollToTop/>
