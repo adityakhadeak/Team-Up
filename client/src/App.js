@@ -15,6 +15,7 @@ import PassRecover from './Pages/PassRecover';
 import Dashboarduser from './Pages/UserProfile/Dashboarduser';
 import Edituserinfo from './Pages/UserProfile/Edituserinfo';
 import Applicationstatus from './Pages/UserProfile/Applicationstatus';import Explore from './Pages/Explore';
+import Settings from './Pages/Settings';
 
 function App() {
 
@@ -27,8 +28,7 @@ function App() {
         <Route path='/register' element={<Registration />} />
         <Route path='/postproj' element={<Postproject />} />
         <Route path='/findproj' element={<Findproject />} />
-
-        <Route path='/footer' element={<Footer />} />
+        <Route path='/settings' element={<Settings />} />
         <Route path='/recoverpassword' element={<PassRecover />} />
         <Route path='/Dashboard' element={<Dashboarduser/>}/>
         <Route path='/applicationstatus' element={<Applicationstatus/>}/>

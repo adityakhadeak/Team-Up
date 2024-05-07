@@ -1,4 +1,6 @@
 import { Avatar, Box, Button, Text, Textarea, Wrap, WrapItem, useDisclosure } from '@chakra-ui/react'
+import { IoMdArrowDropdown } from "react-icons/io";
+
 import {
     Modal,
     ModalOverlay,
@@ -9,7 +11,7 @@ import {
     ModalCloseButton,
 } from '@chakra-ui/react'
 import React from 'react'
-import { MdOutlinePermMedia,MdWork } from "react-icons/md";
+import { MdOutlinePermMedia, MdWork } from "react-icons/md";
 import { BsEmojiSmile } from "react-icons/bs";
 import { FaLaptopCode } from "react-icons/fa6";
 
@@ -41,7 +43,7 @@ const MiddleTop = () => {
                     </Box>
 
                 </Box>
-                <Box my='10px'  display='flex' flexDirection='row' gap='2' alignItems='center' justifyContent='space-evenly'>
+                <Box my='10px' display='flex' flexDirection='row' gap='2' alignItems='center' justifyContent='space-evenly'>
                     <Box p='10px' _hover={{ bgColor: '#ebebeb' }} borderRadius='10px' as='button' display='flex' flexDirection='row' gap='2' alignItems='center'>
                         <MdOutlinePermMedia cursor='pointer' color='#00a0dc' fontSize='20px' />
                         <Text color='#404040' fontWeight='500'>Media</Text>
@@ -71,7 +73,11 @@ const MiddleTop = () => {
                                 </WrapItem>
                             </Wrap>
                             <Box display='flex' flexDirection='column' justifyContent='start' mx='10px'>
-                                <Text my='2px' as='h2' fontSize='20px' fontWeight='600' >Aditya Khade</Text>
+                                <Box gap='1' display='flex' flexDirection='row' alignItems='center'>
+
+                                    <Text my='2px' as='h2' fontSize='20px' fontWeight='600' >Aditya Khade                                    </Text>
+                                    <IoMdArrowDropdown />
+                                </Box>
                                 <Text textAlign='start' lineHeight='10px' my='2px' as='h2' fontSize='14px' fontWeight='600' >Post to anyone</Text>
 
                             </Box>
