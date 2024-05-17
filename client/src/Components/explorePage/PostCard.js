@@ -4,7 +4,9 @@ import { BsThreeDotsVertical, BsThreeDots, BsEmojiSmile } from 'react-icons/bs'
 import { BiChat, BiLike, BiShare } from 'react-icons/bi'
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
-const PostCard = () => {
+import { RxCrossCircled } from "react-icons/rx";
+
+const PostCard = ({name,work}) => {
     const [liked, setLiked] = useState(false)
     const [showEmojiPicker, setShowEmojiPicker] = useState(false)
     const emojiPickerRef = useRef(null);
@@ -34,12 +36,12 @@ const PostCard = () => {
         function handleClickOutside(event) {
             const excludedDiv = document.getElementById('excludedDivId'); // Replace 'excludedDivId' with the id of the div you want to exclude
 
-            if (excludedDiv && !excludedDiv.contains(event.target)) {
+            // if (excludedDiv && !excludedDiv.contains(event.target)) {
 
                 if (emojiPickerRef.current && !emojiPickerRef.current.contains(event.target)) {
                     setShowEmojiPicker(false);
                 }
-            }
+            // }
         }
 
         document.addEventListener("mousedown", handleClickOutside);
@@ -58,8 +60,8 @@ const PostCard = () => {
                         <Avatar name='Segun Adebayo' src='https://bit.ly/sage-adebayo' />
 
                         <Box>
-                            <Heading size='sm'>Aditya Khade</Heading>
-                            <Text>Full Stack Developer</Text>
+                            <Heading size='sm'>{name}</Heading>
+                            <Text>{work}</Text>
                         </Box>
                     </Flex>
                     <IconButton
@@ -125,7 +127,8 @@ const PostCard = () => {
                                 </Box>}
                                 <Input onChange={(e) => handleComment(e.target.value)} value={comment} rounded='10px' placeholder='Add a comment' />
                                 <InputRightElement pointerEvents='all'>
-                                    <BsEmojiSmile id='excludedDivId' cursor={'pointer'} onClick={() => { setShowEmojiPicker(!showEmojiPicker) }} fontSize={'20px'} />
+                                    <BsEmojiSmile style={{display:`${showEmojiPicker?'none':'block'}`}} display={showEmojiPicker?'block':'none'} id='excludedDivId' cursor={'pointer'} onClick={() => { setShowEmojiPicker(true) }} fontSize={'20px'} />
+                                    <RxCrossCircled  style={{display:`${showEmojiPicker?'block':'none'}`}} id='excludedDivId' cursor={'pointer'} onClick={() => { setShowEmojiPicker(false) }} fontSize={'20px'} />
                                 </InputRightElement>
                             </InputGroup>
                         </FormControl>
