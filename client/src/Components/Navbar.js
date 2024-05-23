@@ -24,6 +24,7 @@ const Navbar = () => {
   const { isFixed } = useContext(NavFixedContext)
 
 
+
   const fadeInDown = keyframes`
   0% {
     opacity: 0;
@@ -56,7 +57,7 @@ const Navbar = () => {
           <Box >
             <Link to='/findproj'><Text> Find Project</Text></Link>
           </Box>
-         
+
         </Box>
         <Box mx='15px' display='flex' alignItems='center' justifyContent='center'>
           <Box mx='5px' display='flex' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
@@ -65,21 +66,24 @@ const Navbar = () => {
           <Box mx='5px' display='flex' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
             <Link to='/register' >  <Button width='100%' height='45px' borderRadius='10px' colorScheme='gray' >Sign Up</Button></Link>
           </Box>
-          <Box mx='5px' display='flex' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
-            <Popover  closeOnBlur={true}>
-              <PopoverTrigger >
-                <Box  cursor='pointer' display='flex' flexDirection='column' alignItems='center'>
+          <Box mx='5px' display='flex' outline='none' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
+            <Popover 
+              closeOnBlur={true}>
+              <PopoverTrigger  >
+                <Box as='button'
+                  cursor='pointer' display='flex' flexDirection='column' alignItems='center'>
                   <Avatar size='xs' name='Ryan Florence' src='https://bit.ly/ryan-florence' />
-                  <Box display='flex' flexDirection='row' alignItems='center'>
+                  <Box  display='flex' flexDirection='row' alignItems='center'>
 
                     <Text my='2px' as='h2' fontSize='13px' fontWeight='600' >Me</Text>
                     <IoMdArrowDropdown />
                   </Box>
                 </Box>
+              
               </PopoverTrigger>
               <PopoverContent width='310px'>
-                <PopoverBody>
-                  <DropDown/>
+                <PopoverBody >
+                  <DropDown />
                 </PopoverBody>
               </PopoverContent>
             </Popover>

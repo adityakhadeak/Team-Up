@@ -15,42 +15,38 @@ const LeftSide = () => {
                 <Text fontSize='30px' fontWeight='600'>Settings</Text>
             </Box>
             <Box  fontSize='20px' fontWeight='500' gap={8} display='flex' flexDirection={'column'} >
-                <Box onClick={()=>handleActiveSetting('Account Preferences')} borderRight={activeSetting==='Account Preferences'?' solid #0a66c2 3px':''} px='10px' gap={2} display='flex' flexDirection={'row'} alignItems='center'>
+                <Box onClick={()=>handleActiveSetting('Account Preferences')} color={activeSetting==='Account Preferences'?'  #0a66c2 ':'black'} borderRight={activeSetting==='Account Preferences'?' solid #0a66c2 3px':''} px='10px' gap={2} display='flex' flexDirection={'row'} alignItems='center'>
                     <IconButton
                         variant='ghost'
                         fontSize='30px'
-                        colorScheme='gray'
-                        aria-label='See menu'
+                        color={activeSetting==='Account Preferences'?'  #0a66c2 ':'black'}                        aria-label='See menu'
                         icon={<MdAccountCircle />}
                     />
                     <Link to={'account'}  fontWeight='400'>Account Preferences</Link>
                 </Box>
-                <Box onClick={()=>handleActiveSetting('Sign & Security')} borderRight={activeSetting==='Sign & Security'?' solid #0a66c2 3px':''}  px='10px' gap={2} display='flex' flexDirection={'row'} alignItems='center'>
+                <Box onClick={()=>handleActiveSetting('Sign & Security')} color={activeSetting==='Sign & Security'?'  #0a66c2 ':'black'} borderRight={activeSetting==='Sign & Security'?' solid #0a66c2 3px':''}  px='10px' gap={2} display='flex' flexDirection={'row'} alignItems='center'>
                     <IconButton
                         variant='ghost'
                         fontSize='30px'
-                        colorScheme='gray'
-                        aria-label='See menu'
+                        color={activeSetting==='Sign & Security'?'  #0a66c2 ':'black'}                        aria-label='See menu'
                         icon={<MdLockPerson />}
                     />
                     <Link to={'sign-in-and-security'} fontSize='30px' fontWeight='400'>Sign & Security</Link>
                 </Box>
-                <Box onClick={()=>handleActiveSetting('Visibility')} borderRight={activeSetting==='Visibility'?' solid #0a66c2 3px':''}  px='10px' gap={2} display='flex' flexDirection={'row'} alignItems='center'>
+                <Box to={'profile-visibility'}  onClick={()=>handleActiveSetting('Visibility')} color={activeSetting==='Visibility'?'  #0a66c2 ':'black'} borderRight={activeSetting==='Visibility'?' solid #0a66c2 3px':''}  px='10px' gap={2} display='flex' flexDirection={'row'} alignItems='center'>
                     <IconButton
                         variant='ghost'
                         fontSize='30px'
-                        colorScheme='gray'
-                        aria-label='See menu'
+                        color={activeSetting==='Visibility'?'  #0a66c2 ':'black'}                        aria-label='See menu'
                         icon={<MdVisibility />}
                     />
                     <Link to={'profile-visibility'}  fontWeight='400'>Visibility</Link>
                 </Box>
-                <Box onClick={()=>handleActiveSetting('Notifications')} borderRight={activeSetting==='Notifications'?' solid #0a66c2 3px':''}  px='10px' gap={2} display='flex' flexDirection={'row'} alignItems='center'>
+                <Box onClick={()=>handleActiveSetting('Notifications')} color={activeSetting==='Notifications'?'  #0a66c2 ':'black'} borderRight={activeSetting==='Notifications'?' solid #0a66c2 3px':''}  px='10px' gap={2} display='flex' flexDirection={'row'} alignItems='center'>
                     <IconButton
                         variant='ghost'
                         fontSize='30px'
-                        colorScheme='gray'
-                        aria-label='See menu'
+                        color={activeSetting==='Notifications'?'  #0a66c2 ':'black'}                        aria-label='See menu'
                         icon={<MdNotifications />}
                     />
                     <Link to={'notifications'}  fontWeight='400'>Notifications</Link>

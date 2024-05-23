@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom'
 
 const DropDown = () => {
     return (
-        <Box display='flex' flexDirection='column' justifyContent='start' alignItems='start' height='470px'>
-            <Box py='5px' borderBottom='solid #e8e8e8 0.5px' display='flex' flexDirection='column' justifyContent='start' alignItems='center'>
+        <Box display='flex'   flexDirection='column' justifyContent='start' alignItems='start' height='470px'>
+            <Box py='5px'  borderBottom='solid #e8e8e8 0.5px' display='flex' flexDirection='column' justifyContent='start' alignItems='center'>
                 <Box my='5px' display='flex' flexDirection='row' justifyContent='start' alignItems='start'  >
                     <Box mx='5px'>
                         <Wrap>

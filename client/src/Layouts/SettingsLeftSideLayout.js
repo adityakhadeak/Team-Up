@@ -9,10 +9,10 @@ const SettingLeftSideLayout = () => {
     const location = useLocation();
     return (
         <Grid height='100vh' templateColumns="1fr 4fr">
-        <GridItem bgColor='#ffffff' >
+        <GridItem w='100%' bgColor='#ffffff' >
             <LeftSide/>
         </GridItem>
-        <GridItem bgColor='#f3f2ef' >
+        <GridItem w='100%' bgColor='#f3f2ef' >
             <Outlet/>
         </GridItem>
     </Grid>
