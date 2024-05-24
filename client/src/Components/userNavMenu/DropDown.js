@@ -26,7 +26,7 @@ const DropDown = () => {
                     <Text fontWeight='600'>Account</Text>
                 </Box>
                 <VStack my='5px' mx='2px' color='#666666' fontSize='15px' align='start'>
-                    <Link to='/settings'>Settings & privacy</Link>
+                    <Link to='/settings/account'>Settings & privacy</Link>
                     <Link>Help</Link>
                     <Link>Language</Link>
                 </VStack>

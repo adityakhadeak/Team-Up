@@ -14,6 +14,10 @@ import Email from './signInAndSecurity.js/Email.js';
 import Phone from './signInAndSecurity.js/Phone.js';
 import ChangePassword from './signInAndSecurity.js/ChangePassword.js';
 import AccntPref from './accountPreferences/AccntPref.js';
+import EditProfile from './profileVisibility/EditProfile.js';
+import MsgNotification from './notifications.js/MsgNotifications.js';
+import PostNotifications from './notifications.js/PostNotifications.js';
+import ProjectsNotification from './notifications.js/ProjectsNotification.js';
 
 
 const RightSide = () => {
@@ -31,7 +35,11 @@ const RightSide = () => {
         <Route path='sign-in-and-security/manage-phone' element={<Phone />} />
         <Route path='sign-in-and-security/change-password' element={<ChangePassword />} />
         <Route path='profile-visibility' element={<ProfileVisibility />} />
+        <Route path='profile-visibility/edit-public-profile' element={<EditProfile />} />
         <Route path='notifications' element={<Notifications />} />
+        <Route path='notifications/messaging' element={<MsgNotification />} />
+        <Route path='notifications/posting-and-commenting' element={<PostNotifications />} />
+        <Route path='notifications/projects' element={<ProjectsNotification />} />
 
       </Route >
     </Routes>
