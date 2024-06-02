@@ -39,7 +39,7 @@ const Notifications = () => {
                 <Icon color={'#666666'} as={FaArrowRightLong} />
               </Box>
             </Box>
-            <Box  onClick={()=>{navigate('projects')}} display='flex' flexDirection='row' justifyContent='space-between' alignItems='center'>
+            <Box  onClick={()=>{navigate('projects')}} cursor='pointer' display='flex' flexDirection='row' justifyContent='space-between' alignItems='center'>
               <Box>
                 <Text pt='2' fontSize='md'>
 

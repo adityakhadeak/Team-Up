@@ -2,7 +2,13 @@ import { Avatar, Box, Button, Text, VStack, Wrap, WrapItem } from '@chakra-ui/re
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const DropDown = () => {
+const DropDown = ({trigger}) => {
+
+     const handleTriggerClick = () => {
+    if (trigger.current) {
+        trigger.current.click();
+    }}
+
     return (
         <Box display='flex'   flexDirection='column' justifyContent='start' alignItems='start' height='470px'>
             <Box py='5px'  borderBottom='solid #e8e8e8 0.5px' display='flex' flexDirection='column' justifyContent='start' alignItems='center'>
@@ -19,16 +25,17 @@ const DropDown = () => {
                         <Text my='2px' color='#666666' width='200px' textAlign='start' fontSize='15px'>Node JS Developer Intern @Swasth Mind | Coding Enthusiast | Full Stack Developer (MERN)</Text>
                     </Box>
                 </Box>
-                <Button size='sm' colorScheme='blue' my='5px'>View profile</Button>
+                <Button onClick={handleTriggerClick} size='sm' colorScheme='blue' my='5px'>View profile</Button>
             </Box>
             <Box borderBottom='solid #e8e8e8 0.5px' py='5px' width='100%'>
                 <Box>
                     <Text fontWeight='600'>Account</Text>
                 </Box>
                 <VStack my='5px' mx='2px' color='#666666' fontSize='15px' align='start'>
-                    <Link to='/settings/account'>Settings & privacy</Link>
-                    <Link>Help</Link>
-                    <Link>Language</Link>
+                    <Link onClick={handleTriggerClick} to='/settings/account'>Settings & privacy</Link>
+                    <Link onClick={handleTriggerClick} >Help</Link>
+                    <Link onClick={handleTriggerClick} to={'/settings/account/language'}>Language</Link>
+ 
                 </VStack>
             </Box>
             <Box borderBottom='solid #e8e8e8 0.5px' py='5px' width='100%'>
@@ -36,14 +43,13 @@ const DropDown = () => {
                     <Text fontWeight='600'>Manage</Text>
                 </Box>
                 <VStack my='5px' mx='2px' color='#666666' fontSize='15px' align='start'>
-                    <Link>Post & Activity</Link>
-                    <Link>Internship posting account</Link>
-                    <Link>Language</Link>
+                    <Link onClick={handleTriggerClick}>Post & Activity</Link>
+                    <Link onClick={handleTriggerClick}>Internship posting account</Link>
                 </VStack>
             </Box>
             <Box py='5px' >
                 <Box mx='2px' color='#666666' fontSize='15px' align='start'>
-                    <Link>Sign Out</Link>
+                    <Link onClick={handleTriggerClick}>Sign Out</Link>
                 </Box>
 
             </Box>

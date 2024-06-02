@@ -11,7 +11,7 @@ import {
   Avatar,
   useDisclosure,
 } from '@chakra-ui/react'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useRef, useState } from 'react'
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from 'react-router-dom';
 import { NavFixedContext } from '../Context/NavFixedContext';
@@ -34,15 +34,10 @@ const Navbar = () => {
     opacity: 1;
     transform: translateZ(0);
   }
-`;
-  // const [isOptionsVisible, setIsOptionsVisible] = useState(false);
+  `;
 
-  // const toggleOptionsVisibility = () => {
-  //   setIsOptionsVisible(!isOptionsVisible);
-  // };
-  // const handleOptionClick = () => {
-  //   setIsOptionsVisible(false); // Close the dropdown menu when an option is clicked
-  // };
+  const trigger=useRef(null)
+
   return (
     <Box position={isFixed ? 'fixed' : 'relative'} animation={isFixed ? `${fadeInDown} 0.4s ease-in-out` : ''} backgroundColor='white' zIndex='1000' width='100%' fontFamily={'Raleway'}>
       <Box display={{ base: 'flex', md: 'flex' }} borderBottom='solid 0.5px #e6e6e6' boxShadow={'0px 0px 10px 0px #e5e5e5'} alignItems='center' justifyContent='center' height='60px' p='5px' px='20px'>
@@ -67,23 +62,23 @@ const Navbar = () => {
             <Link to='/register' >  <Button width='100%' height='45px' borderRadius='10px' colorScheme='gray' >Sign Up</Button></Link>
           </Box>
           <Box mx='5px' display='flex' outline='none' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
-            <Popover 
+            <Popover
               closeOnBlur={true}>
               <PopoverTrigger  >
-                <Box as='button'
+                <Box ref={trigger} as='button'
                   cursor='pointer' display='flex' flexDirection='column' alignItems='center'>
                   <Avatar size='xs' name='Ryan Florence' src='https://bit.ly/ryan-florence' />
-                  <Box  display='flex' flexDirection='row' alignItems='center'>
+                  <Box display='flex' flexDirection='row' alignItems='center'>
 
                     <Text my='2px' as='h2' fontSize='13px' fontWeight='600' >Me</Text>
                     <IoMdArrowDropdown />
                   </Box>
                 </Box>
-              
+
               </PopoverTrigger>
               <PopoverContent width='310px'>
                 <PopoverBody >
-                  <DropDown />
+                  <DropDown trigger={trigger} />
                 </PopoverBody>
               </PopoverContent>
             </Popover>

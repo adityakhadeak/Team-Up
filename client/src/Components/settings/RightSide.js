@@ -18,6 +18,7 @@ import EditProfile from './profileVisibility/EditProfile.js';
 import MsgNotification from './notifications.js/MsgNotifications.js';
 import PostNotifications from './notifications.js/PostNotifications.js';
 import ProjectsNotification from './notifications.js/ProjectsNotification.js';
+import Language from './accountPreferences/Language.js';
 
 
 const RightSide = () => {
@@ -28,6 +29,7 @@ const RightSide = () => {
         <Route path='account/profileinfo1' element={<ProfileInfo1 />} />
         <Route path='account/skills' element={<Skills />} />
         <Route path='account/darkmode' element={<DisplayMode />} />
+        <Route path='account/language' element={<Language />} />
         <Route path='account/closeaccount' element={<CloseAccount />} />
         
         <Route path='sign-in-and-security' element={<SignInAndSecurity />} />
