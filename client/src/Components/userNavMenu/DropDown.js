@@ -1,17 +1,21 @@
 import { Avatar, Box, Button, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-const DropDown = ({trigger}) => {
+const DropDown = ({ trigger }) => {
 
-     const handleTriggerClick = () => {
-    if (trigger.current) {
-        trigger.current.click();
-    }}
+    const navigate = useNavigate()
+    const handleTriggerClick = () => {
+        if (trigger.current) {
+            trigger.current.click();
+        }
+        navigate('/profile')
+
+    }
 
     return (
-        <Box display='flex'   flexDirection='column' justifyContent='start' alignItems='start' height='470px'>
-            <Box py='5px'  borderBottom='solid #e8e8e8 0.5px' display='flex' flexDirection='column' justifyContent='start' alignItems='center'>
+        <Box display='flex' flexDirection='column' justifyContent='start' alignItems='start' height='470px'>
+            <Box py='5px' borderBottom='solid #e8e8e8 0.5px' display='flex' flexDirection='column' justifyContent='start' alignItems='center'>
                 <Box my='5px' display='flex' flexDirection='row' justifyContent='start' alignItems='start'  >
                     <Box mx='5px'>
                         <Wrap>
@@ -35,7 +39,7 @@ const DropDown = ({trigger}) => {
                     <Link onClick={handleTriggerClick} to='/settings/account'>Settings & privacy</Link>
                     <Link onClick={handleTriggerClick} >Help</Link>
                     <Link onClick={handleTriggerClick} to={'/settings/account/language'}>Language</Link>
- 
+
                 </VStack>
             </Box>
             <Box borderBottom='solid #e8e8e8 0.5px' py='5px' width='100%'>

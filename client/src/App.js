@@ -12,10 +12,9 @@ import Postproject from './Pages/Postproject';
 import Findproject from './Pages/Findproject';
 import Footer from './Components/footer'
 import PassRecover from './Pages/PassRecover';
-import Dashboarduser from './Pages/UserProfile/Dashboarduser';
-import Edituserinfo from './Pages/UserProfile/Edituserinfo';
-import Applicationstatus from './Pages/UserProfile/Applicationstatus';import Explore from './Pages/Explore';
+import Explore from './Pages/Explore';
 import RightSide from './Components/settings/RightSide';
+import UserProfile from './Pages/UserProfile';
 
 function App() {
 
@@ -30,9 +29,8 @@ function App() {
         <Route path='/findproj' element={<Findproject />} />
         <Route path='/settings/*' element={<RightSide />} />
         <Route path='/recoverpassword' element={<PassRecover />} />
-        <Route path='/dashboard' element={<Dashboarduser/>}/>
-        <Route path='/applicationstatus' element={<Applicationstatus/>}/>
-        <Route path='/edituser' element={<Edituserinfo/>}/>
+        <Route path='/profile' element={<UserProfile />} />
+      
       </Route >
     )
   )
