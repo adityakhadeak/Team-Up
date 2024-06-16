@@ -11,7 +11,7 @@ import {
   Avatar,
   useDisclosure,
 } from '@chakra-ui/react'
-import React, { useContext, useRef, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from 'react-router-dom';
 import { NavFixedContext } from '../Context/NavFixedContext';
@@ -19,10 +19,15 @@ import { keyframes } from '@emotion/react';
 import { FaUser } from 'react-icons/fa';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import DropDown from './userNavMenu/DropDown';
+import { UserDataContext } from '../Context/UserDataContext';
 const Navbar = () => {
 
   const { isFixed } = useContext(NavFixedContext)
+  const { setIsLoggedIn, isLoggedIn } = useContext(UserDataContext)
 
+  useEffect(() => {
+    setIsLoggedIn(localStorage.getItem('teamup-login'))
+  }, [])
 
 
   const fadeInDown = keyframes`
@@ -36,7 +41,7 @@ const Navbar = () => {
   }
   `;
 
-  const trigger=useRef(null)
+  const trigger = useRef(null)
 
   return (
     <Box position={isFixed ? 'fixed' : 'relative'} animation={isFixed ? `${fadeInDown} 0.4s ease-in-out` : ''} backgroundColor='white' zIndex='1000' width='100%' fontFamily={'Raleway'}>
@@ -55,13 +60,15 @@ const Navbar = () => {
 
         </Box>
         <Box mx='15px' display='flex' alignItems='center' justifyContent='center'>
-          <Box mx='5px' display='flex' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
-            <Link to='/login' >  <Button width='100%' height='45px' borderRadius='10px' colorScheme='linkedin' >Sign In</Button></Link>
-          </Box>
-          <Box mx='5px' display='flex' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
-            <Link to='/register' >  <Button width='100%' height='45px' borderRadius='10px' colorScheme='gray' >Sign Up</Button></Link>
-          </Box>
-          <Box mx='5px' display='flex' outline='none' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
+          {!isLoggedIn && <Box display='flex' alignItems='center' justifyContent='center'>
+            <Box mx='5px' display='flex' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
+              <Link to='/login' >  <Button width='100%' height='45px' borderRadius='10px' colorScheme='linkedin' >Sign In</Button></Link>
+            </Box>
+            <Box mx='5px' display='flex' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
+              <Link to='/register' >  <Button width='100%' height='45px' borderRadius='10px' colorScheme='gray' >Sign Up</Button></Link>
+            </Box>
+          </Box>}
+          {isLoggedIn && <Box mx='5px' display='flex' outline='none' justifyContent={'center'} alignItems={'center'} py='10px' my='20px'>
             <Popover
               closeOnBlur={true}>
               <PopoverTrigger  >
@@ -82,7 +89,7 @@ const Navbar = () => {
                 </PopoverBody>
               </PopoverContent>
             </Popover>
-          </Box>
+          </Box>}
         </Box>
       </Box>
 

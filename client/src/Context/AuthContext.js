@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { BASE_URL } from "../helper.js"
 import { useToast } from '@chakra-ui/react'
 import { UserDataContext } from "./UserDataContext.js";
@@ -6,7 +6,11 @@ export const AuthContext = createContext()
 
 export const AuthContextProvider = (props) => {
 
-    const { setLoggedUserData } = useContext(UserDataContext)
+    const { setLoggedUserData, loggedUserData } = useContext(UserDataContext)
+
+
+   
+    
     const toast = useToast()
     const [registrationStep, setRegistrationStep] = useState(1)
     const [passwordRecoverStep, setPasswordRecoverStep] = useState(1)
@@ -51,10 +55,13 @@ export const AuthContextProvider = (props) => {
                 user_id: resJson.user._id,
                 username: resJson.user.username,
                 email: resJson.user.email,
-                firstname: resJson.user.username,
-                lastname: resJson.user.username,
+                firstname: resJson.user.firstname,
+                lastname: resJson.user.lastname,
                 isverified: resJson.user.isverified
             })
+           
+                localStorage.setItem('teamup_user_id',resJson.user._id)
+              
         }
         toast({
             title: resJson.message,
@@ -130,7 +137,7 @@ export const AuthContextProvider = (props) => {
         });
         return resJson.success
     }
-    return (<AuthContext.Provider value={{ passwordRecoverStep, setPasswordRecoverStep, setUserRegistrationInfo, userRegistrationInfo, registrationStep, setRegistrationStep, handleRegistration, success, handleOTPVerify, handleOTPGenerate, setSuccess, handleResetPassword, handleLogin }}>
+    return (<AuthContext.Provider value={{ passwordRecoverStep, setPasswordRecoverStep, setUserRegistrationInfo, userRegistrationInfo, registrationStep, setRegistrationStep, handleRegistration, success, handleOTPVerify, handleOTPGenerate, setSuccess, handleResetPassword, handleLogin}}>
         {props.children}
     </AuthContext.Provider>)
 }

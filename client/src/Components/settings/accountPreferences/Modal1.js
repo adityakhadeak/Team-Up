@@ -14,7 +14,8 @@ const Modal1 = ({ open, setOpenModal1 }) => {
             gender: "",
             dob: '',
             location: '',
-            headline: ''
+            headline: '',
+            about:''
         },
         validateOnBlur: false,
         validateOnChange: false,
@@ -68,7 +69,12 @@ const Modal1 = ({ open, setOpenModal1 }) => {
                                         <FormErrorMessage>{formik.errors.location}</FormErrorMessage>
 
                                     </FormControl>
+                                    <FormControl isInvalid={formik.errors.about} >
+                                        <FormLabel>About</FormLabel>
+                                        <Input name='about' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.about} border='1px' borderColor='black' placeholder='Enter About' py='10px' variant='outline' type='text' />
+                                        <FormErrorMessage>{formik.errors.about}</FormErrorMessage>
 
+                                    </FormControl>
                                 </Box>
                                 <Box width='50%' gap='10' display='flex' flexDirection='column' justifyContent='space-between' alignItems='start'>
                                     <FormControl isInvalid={formik.errors.lastname} >

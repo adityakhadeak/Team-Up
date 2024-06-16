@@ -1,14 +1,19 @@
 import { Box, Button, FormControl, FormLabel, Grid, GridItem, Input, Text, InputRightElement, InputGroup, FormErrorMessage, useConst } from '@chakra-ui/react'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FcGoogle } from "react-icons/fc";
-import { Link, Link as ReactRouterLink } from 'react-router-dom'
+import { Link, Link as ReactRouterLink, useNavigate } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import {useFormik} from 'formik'
 import * as Yup from 'yup'
 import { AuthContext } from '../Context/AuthContext';
+import { UserDataContext } from '../Context/UserDataContext';
 const Login = () => {
-
   const {handleLogin}=useContext(AuthContext)
+  const { setIsLoggedIn,setLoggedUserDatam,loggedUserData}=useContext(UserDataContext)
+
+  
+  
+  const navigate=useNavigate()
   const formik=useFormik({
     initialValues:{
       username:"",
@@ -20,11 +25,17 @@ const Login = () => {
       username:Yup.string().required("Username required").min(6,"Username must be atleast of 6 characters").matches('^[a-zA-Z0-9]+$','Username should not contain special characters'),
       password:Yup.string().required('Password Required')
     }),
-    onSubmit:(values,actions)=>{
+    onSubmit: async(values,actions)=>{
       if(!formik.errors.password && !formik.errors.username)
       {
-        const goToNextStep=handleLogin(formik.values.username,formik.values.password)
-        
+        const goToNextStep= await handleLogin(formik.values.username,formik.values.password)
+        if(goToNextStep)
+          {
+            navigate('/explore')
+            setIsLoggedIn(true)
+            localStorage.setItem('teamup-login',true)
+          
+          }
       }
       actions.resetForm()
     }
@@ -99,7 +110,6 @@ const Login = () => {
           </Box>
         </Box>
       </GridItem>
-
     </Grid>
   )
 }

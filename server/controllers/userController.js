@@ -5,6 +5,8 @@ import jwt from 'jsonwebtoken'
 import OtpModel from "../models/OtpModel.js";
 import sendMail from "../helper/mailer.js";
 import { oneMinuteExpiryCheck, threeMinuteExpiryCheck } from "../helper/otpValidate.js";
+import { ObjectId } from "mongodb";
+import UserDetailModel from "../models/UserDetailModel.js";
 
 
 export const registerController = async (req, res) => {
@@ -57,7 +59,7 @@ export const registerController = async (req, res) => {
             message: "Internal server error"
         })
     }
-  
+
 }
 export const loginController = async (req, res) => {
 
@@ -281,11 +283,56 @@ export const resetPasswordController = async (req, res) => {
                 }
             })
 
-            res.status(200).json({
-                success: true,
-                message: "Password Updated"
-            })
+        res.status(200).json({
+            success: true,
+            message: "Password Updated"
+        })
 
+    } catch (error) {
+        console.log(error.message)
+        res.status(400).json({
+            success: false,
+            message: "Internal server error"
+        })
+    }
+}
+
+export const getUserInfo = async (req, res) => {
+    try {
+        const user_id = req.params.user_id
+        let user_data = {}
+
+        const userData1 = await UserModel.findOne({ _id: new ObjectId(user_id) })
+        if (!userData1) {
+            return res.status(404).json({
+                success: false,
+                message: "User doesn't exist"
+            })
+        }
+        user_data = {
+            user_id: userData1._id,
+            username: userData1.username,
+            firstname: userData1.firstname,
+            lastname: userData1.lastname,
+            email: userData1.email,
+        }
+        const userData2 = await UserDetailModel.findOne({ user_id: new ObjectId(user_id) })
+
+        if(userData2)
+            {
+                user_data={...user_data,
+                    gender:userData2.gender,
+                    dob:userData2.dob,
+                    location:userData2.location,
+                    headline:userData2.headline,
+                    about:userData2.about,
+                    skills:userData2.skills
+                }
+            }
+        res.status(200).json({
+            success:true,
+            user_data
+        })
     } catch (error) {
         console.log(error.message)
         res.status(400).json({

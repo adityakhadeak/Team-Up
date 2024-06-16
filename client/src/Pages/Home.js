@@ -81,8 +81,8 @@ const Home = () => {
           {/* <img src={home} alt="" /> */}
           <Box width='60%' display='flex' justifyContent='flex-end' flexDirection='column' alignItems='start' >
 
-            <Text fontSize='40px' color='white' fontWeight='700' as='h1'>Find your next project partner</Text>
-            <Text fontSize='15px' color='white' w='60%' as='p'>Connect with other learners to work on projects together. Whether you're building a website, creating an app,
+            <Text fontSize='40px' color='white' fontWeight='700' >Find your next project partner</Text>
+            <Text fontSize='15px' color='white' w='60%' >Connect with other learners to work on projects together. Whether you're building a website, creating an app,
               or exploring machine learning, you can find partners who share your interests and skill level.</Text>
             <Box my='20px' w={{md:'40%',base:'100%'}}>
               <InputGroup size='md'>
@@ -103,8 +103,8 @@ const Home = () => {
           </Box>
         </Box>
         <Box width='72%' display='flex' flexDirection='column' justifyContent='center' alignItems='center'>
-          <Text  textAlign='center' my='10px' fontSize='35px' fontWeight='900' as='h1'>Why learners are using Project Partner Finder</Text>
-          <Box display='flex' alignItems='center' justifyContent='center' textAlign='left' my='15px' as='p'>
+          <Text  textAlign='center' my='10px' fontSize='35px' fontWeight='900' >Why learners are using Project Partner Finder</Text>
+          <Box display='flex' alignItems='center' justifyContent='center' textAlign='left' my='15px'>
             <Text textAlign='center' width={{base:'80%', md:'52rem'}}>
               Project Partner Finder is a place where learners can find partners to work with on projects. It's a great way to
               connect with others who share your interests and skills. Here are some reasons why learners are using Project Partner Finder:
@@ -114,12 +114,12 @@ const Home = () => {
 
         </Box>
         <Box my='10px' flexWrap='wrap' display='flex' justifyContent='center' alignItems='center' gap='0'>
-          {data.map((fea, key) => (
-            <Box cursor='pointer' transition='all' transitionDuration='0.3s' h='275px' p='8px' my='10px' py='12px' _hover={{ boxShadow: '0px 0px 10px 0px #e5e5e5' }} rounded='md' w='200px'>
+          {data.map((fea, index) => (
+            <Box key={index} cursor='pointer' transition='all' transitionDuration='0.3s' h='275px' p='8px' my='10px' py='12px' _hover={{ boxShadow: '0px 0px 10px 0px #e5e5e5' }} rounded='md' w='200px'>
               <img width='190px' src={fea.img} alt="" />
-              <Box my='15px' as='p'>
-                <Text fontWeight='600' as='h3'>{fea.title}</Text>
-                <Text fontSize='13px' color='#637a87' as='p'>{fea.para}</Text>
+              <Box my='15px'>
+                <Text fontWeight='600' >{fea.title}</Text>
+                <Text fontSize='13px' color='#637a87'>{fea.para}</Text>
               </Box>
             </Box>
           ))}
@@ -127,19 +127,19 @@ const Home = () => {
         <Box display='flex' justifyContent='center' alignItems='center' flexDirection='column' my='15px' width='72%'>
           <Text  my='10px' fontSize='30px' fontWeight='700'>How it works</Text>
           <Box my='10px' display='flex' flexWrap='wrap' justifyContent={{md:'space-between',base:'center'}} alignItems='center' gap='10'>
-            {data2.map((wor, key) => (
-              <Box cursor='pointer' h='200px' border={'solid 2px #dbe3e5'} p='12px' boxShadow={'0px 0px 10px 0px #e5e5e5'} rounded='10px' w='210px'>
-                <Box as='span'>{wor.img}</Box>
-                <Box my='15px' as='p'>
-                  <Text fontWeight='700' as='h3'>{wor.title}</Text>
-                  <Text color='#637a87' fontSize='13px' mt='5px' as='p'>{wor.para}</Text>
+            {data2.map((wor, index) => (
+              <Box key={index} cursor='pointer' h='200px' border={'solid 2px #dbe3e5'} p='12px' boxShadow={'0px 0px 10px 0px #e5e5e5'} rounded='10px' w='210px'>
+                <Box >{wor.img}</Box>
+                <Box my='15px' >
+                  <Text fontWeight='700'>{wor.title}</Text>
+                  <Text color='#637a87' fontSize='13px' mt='5px' >{wor.para}</Text>
                 </Box>
               </Box>
             ))}
           </Box>
         </Box>
         <Box my='10px' display='flex' justifyContent='center' flexDirection='column' alignItems='center'>
-          <Text my='5px' textAlign='center' fontSize='35px' fontWeight='900' as='h1'>
+          <Text my='5px' textAlign='center' fontSize='35px' fontWeight='900' >
             Get started with Project Partner Finder
           </Text>
           <Text my='5px' textAlign='center' width='50%'>

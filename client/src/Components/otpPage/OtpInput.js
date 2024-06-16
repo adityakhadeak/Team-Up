@@ -3,13 +3,13 @@ import { Box, Button, FormControl, FormErrorMessage, FormLabel, HStack, Input, I
 import { useFormik } from 'formik';
 import { PinInput, PinInputField } from '@chakra-ui/react'
 import * as Yup from 'yup'
-import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from '../../Context/AuthContext.js';
 import { UserDataContext } from '../../Context/UserDataContext.js';
+import {useNavigate} from 'react-router-dom'
 const OtpInputPage = (props) => {
     const { handleOTPVerify,handleOTPGenerate,setPasswordRecoverStep } = useContext(AuthContext)
     const { loggedUserData } = useContext(UserDataContext)
-
+    const navigate= useNavigate()
     const formik = useFormik({
         initialValues: {
             otp: "",
@@ -24,6 +24,10 @@ const OtpInputPage = (props) => {
                const goToNextStep= await handleOTPVerify(formik.values.otp, loggedUserData.user_id,props.type)
                 // You may add additional logic here if needed
                 console.log(goToNextStep)
+                if(goToNextStep)
+                    {
+                        navigate('/login')
+                    }
                 if(props.type==='other'){
 
                     setPasswordRecoverStep(goToNextStep?3:2)

@@ -16,7 +16,7 @@ const MiddleBottom = () => {
         <Box px='10px'>
          {
            posts.map((post,index)=>(
-            <Box my='10px'>
+            <Box key={index} my='10px'>
                 <PostCard key={index} name={post.name} work={post.work}/>
             </Box>
            ))

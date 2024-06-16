@@ -24,9 +24,6 @@ const userSchema = new mongoose.Schema({
     isverified:{
         type:Number,
         default:0
-    },
-    skills: {
-        type: Array
     }
     
 },
@@ -34,4 +31,4 @@ const userSchema = new mongoose.Schema({
         timestamps: true
     })
 
-export default mongoose.model('users',userSchema)
+export default mongoose.model('user',userSchema)

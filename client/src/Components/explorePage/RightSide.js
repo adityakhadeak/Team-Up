@@ -39,10 +39,10 @@ const RightSide = () => {
             <UnorderedList>
               {
                 allNews.map((news, index) => (
-                  <>
+                  <Box key={index}>
                     <ListItem  fontWeight='500' fontSize='15px'>{news.headline}</ListItem>
                     <Box lineHeight='3px' color='#666666' fontSize='12px' as='span'>3d ago</Box>
-                  </>
+                  </Box>
                 ))
               }
             </UnorderedList>

@@ -1,15 +1,25 @@
 import { Avatar, Box, Button, Text, VStack, Wrap, WrapItem } from '@chakra-ui/react'
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { UserDataContext } from '../../Context/UserDataContext'
 
 const DropDown = ({ trigger }) => {
 
+    const {setIsLoggedIn}=useContext(UserDataContext)
     const navigate = useNavigate()
     const handleTriggerClick = () => {
         if (trigger.current) {
             trigger.current.click();
         }
         navigate('/profile')
+
+    }
+
+    const handleSignOut=()=>{
+        console.log("hello")
+        localStorage.removeItem('teamup-login')
+        setIsLoggedIn(false)
+        // navigate('/login')
 
     }
 
@@ -53,7 +63,8 @@ const DropDown = ({ trigger }) => {
             </Box>
             <Box py='5px' >
                 <Box mx='2px' color='#666666' fontSize='15px' align='start'>
-                    <Link onClick={handleTriggerClick}>Sign Out</Link>
+                    <Link onClick={()=>{handleTriggerClick()
+                        handleSignOut()    }} to={'/login'}>Sign Out</Link>
                 </Box>
 
             </Box>
