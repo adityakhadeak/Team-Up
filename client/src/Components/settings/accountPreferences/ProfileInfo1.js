@@ -4,7 +4,7 @@ import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
 import Modal1 from './Modal1';
 import { UserDataContext } from '../../../Context/UserDataContext';
-
+import moment from 'moment'
 
 const ProfileInfo1 = () => {
     const navigate = useNavigate()
@@ -13,11 +13,9 @@ const ProfileInfo1 = () => {
     const openModal = () => {
         setOpenModal1(!openModal1)
     }
-    console.log(loggedUserData.firstname)
-    console.log(loggedUserData.gender)
+  
     return (
         <Box display='flex' justifyContent='center' flexDirection='column' alignItems='center' p='12px' gap='4'>
-
             <Box width='60%'  >
                 <Card>
                     <CardHeader paddingBottom='5px'>
@@ -73,7 +71,7 @@ const ProfileInfo1 = () => {
                                         DOB
                                     </Text>
                                     <Text fontSize='md'>
-                                    {loggedUserData.dob?loggedUserData.dob:"Not saved"}
+                                    {loggedUserData.dob?moment(loggedUserData.dob).format('DD-MM-YYYY'):"Not saved"}
                                     </Text>
                                 </Box>
 

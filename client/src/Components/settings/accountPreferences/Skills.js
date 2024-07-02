@@ -1,19 +1,23 @@
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Box, Button, Card, CardBody, CardHeader, Heading, Icon, Stack, StackDivider, Text } from '@chakra-ui/react'
 import { FaArrowLeftLong, FaArrowRightLong } from 'react-icons/fa6'
 import { useNavigate } from 'react-router-dom'
 import Modal1 from './Modal1';
 import Modal2 from './Modal2';
+import { UserDataContext } from '../../../Context/UserDataContext';
+import { MdOutlineDelete } from "react-icons/md";
 
 
 const Skills = () => {
-    const skills = ["React", "HTML", "CSS", "JS", "MERN stack"]
+    const { loggedUserData, setLoggedUserData, deleteSkill } = useContext(UserDataContext)
+
+    const skills = loggedUserData.skills
     const navigate = useNavigate()
     const [openModal1, setOpenModal1] = useState(false)
-    const openModal=()=>{
+    const openModal = () => {
         setOpenModal1(!openModal1)
-      }
+    }
     return (
         <Box display='flex' justifyContent='center' flexDirection='column' alignItems='center' p='12px' gap='4'>
 
@@ -25,8 +29,8 @@ const Skills = () => {
                                 <Icon fontSize='12px' as={FaArrowLeftLong} />
                                 <Text fontSize='12px'>Back</Text>
                             </Box>
-                            <Box  cursor='pointer' display={'flex'} alignItems='center' gap={2} color={'#666666'}>
-                            <Button onClick={openModal} size='sm' colorScheme='blue' my='5px'>Add Skill</Button>
+                            <Box cursor='pointer' display={'flex'} alignItems='center' gap={2} color={'#666666'}>
+                                <Button onClick={openModal} size='sm' colorScheme='blue' my='5px'>Add Skill</Button>
                             </Box>
                         </Box>
 
@@ -34,14 +38,23 @@ const Skills = () => {
                     <CardBody >
                         <Stack divider={<StackDivider color='#666666' margin='1px' />} spacing='2'>
                             {
-                                skills.map((skill, index) => (
-                                    <Box key={index}>
-                                        <Text pt='2' fontSize='md'>
+                                skills.length == 0 ? (<Box textAlign={'center'}>No Skills added</Box>) : (
 
-                                            {skill}
-                                        </Text>
-                                    </Box>
-                                ))
+                                    skills.map((skill, index) => (
+                                        <Box px={'10px'} display={'flex'} alignItems={'center'} justifyContent={'space-between'} key={index}>
+                                            <Box pt='2' fontSize='md'>
+                                                {skill}
+                                            </Box>
+                                            <Box cursor={'pointer'}
+                                                onClick={() => {
+                                                    deleteSkill()
+                                                }}>
+                                                <MdOutlineDelete fontSize={'20px'} />
+                                            </Box>
+                                        </Box>
+                                    ))
+
+                                )
                             }
 
                         </Stack>
@@ -49,7 +62,7 @@ const Skills = () => {
                     </CardBody>
                 </Card>
             </Box>
-            <Modal2 open={openModal1} openModal={openModal} setOpenModal1={setOpenModal1} />
+            <Modal2 skills={skills} open={openModal1} openModal={openModal} setOpenModal1={setOpenModal1} />
 
         </Box>
     )

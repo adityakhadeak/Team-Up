@@ -9,8 +9,13 @@ import { AuthContext } from '../Context/AuthContext';
 import { UserDataContext } from '../Context/UserDataContext';
 const Login = () => {
   const {handleLogin}=useContext(AuthContext)
-  const { setIsLoggedIn,setLoggedUserDatam,loggedUserData}=useContext(UserDataContext)
+  const { setIsLoggedIn,isLoggedIn,setLoggedUserDatam,loggedUserData}=useContext(UserDataContext)
 
+  useEffect(() => {
+    if(isLoggedIn){
+      navigate('/explore')
+    }
+  }, [isLoggedIn])
   
   
   const navigate=useNavigate()

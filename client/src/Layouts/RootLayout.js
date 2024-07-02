@@ -12,7 +12,7 @@ const RootLayout = () => {
     const navigate=useNavigate()
 
     useEffect(() => {
-      if (!isLoggedIn) {
+      if (!localStorage.getItem('teamup-login')) {
         navigate('/login')
       }
     }, [])

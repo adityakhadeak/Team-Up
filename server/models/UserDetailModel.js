@@ -20,7 +20,6 @@ const userDetailsSchema = new mongoose.Schema({
     },
     about:{
         type:String,
-        
     },
     skills:{
         type:Array

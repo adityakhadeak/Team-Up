@@ -26,8 +26,9 @@ export const AuthContextProvider = (props) => {
             body: JSON.stringify(userRegistrationInfo)
         })
         const resJson = await response.json()
+        console.log(resJson)
         setSuccess(resJson.success)
-        if (resJson.success)
+        if (resJson.success){
             setLoggedUserData({ ...userRegistrationInfo, user_id: resJson.data._id, isverified: resJson.data.isverified })
         toast({
             title: resJson.message,
@@ -35,7 +36,7 @@ export const AuthContextProvider = (props) => {
             status: resJson.success ? 'success' : 'error',
             duration: 5000,
             isClosable: true
-        });
+        });}
         return resJson.success
 
     }
@@ -50,6 +51,7 @@ export const AuthContextProvider = (props) => {
         })
         const resJson = await response.json()
         console.log(resJson)
+        
         if (resJson.success) {
             setLoggedUserData({
                 user_id: resJson.user._id,
@@ -61,6 +63,7 @@ export const AuthContextProvider = (props) => {
             })
            
                 localStorage.setItem('teamup_user_id',resJson.user._id)
+                localStorage.setItem('teamup_token',resJson.token)
               
         }
         toast({

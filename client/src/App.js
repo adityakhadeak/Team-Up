@@ -18,6 +18,7 @@ import UserProfile from './Pages/UserProfile';
 
 function App() {
 
+  
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<RootLayout />}>

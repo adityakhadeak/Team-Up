@@ -4,9 +4,11 @@ import { Link, Link as ReactRouterLink } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import React from 'react'
+import React, { useContext } from 'react'
+import { UserDataContext } from '../../../Context/UserDataContext'
 
-const Modal2 = ({ open, setOpenModal1 }) => {
+const Modal2 = ({ open, setOpenModal1,skills }) => {
+    const { loggedUserData,addUserSkill} = useContext(UserDataContext)    
     const formik = useFormik({
         initialValues: {
             skill: ''
@@ -14,12 +16,13 @@ const Modal2 = ({ open, setOpenModal1 }) => {
         validateOnBlur: false,
         validateOnChange: false,
         validationSchema: Yup.object({
-            skill: Yup.string().required("Skill required").matches('^[a-zA-Z0-9]+$', 'Username should not contain special characters'),
+            skill: Yup.string().required("Skill required")
         }),
-        onSubmit: (values, actions) => {
-            if (!formik.errors.password && !formik.errors.username) {
-                // const goToNextStep = handleLogin(formik.values.username, formik.values.password)
-
+        onSubmit:async (values, actions) => {
+            if (!formik.errors.skill ) {
+                await addUserSkill(formik.values.skill)
+                skills.push(formik.values.skill)
+                setOpenModal1(!open)
             }
             actions.resetForm()
         }
@@ -29,10 +32,11 @@ const Modal2 = ({ open, setOpenModal1 }) => {
             <Modal isOpen={open} onClose={() => { setOpenModal1(!open) }} >
                 <ModalOverlay onClick={() => { setOpenModal1(!open) }} />
                 <ModalContent >
+                <form onSubmit={formik.handleSubmit}>
+
                     <ModalHeader>Add Skill</ModalHeader>
                     <ModalCloseButton onClick={() => { setOpenModal1(!open) }} />
                     <ModalBody>
-                        <form onSubmit={formik.handleSubmit}>
 
                             <Box>
                                 <FormControl isInvalid={formik.errors.skill} >
@@ -42,15 +46,16 @@ const Modal2 = ({ open, setOpenModal1 }) => {
                                 </FormControl>
                             </Box>
 
-                        </form>
+                       
                     </ModalBody>
 
                     <ModalFooter>
                         <Button colorScheme='blue' mr={3} onClick={() => { setOpenModal1(!open) }}>
                             Close
                         </Button>
-                        <Button variant='ghost'>Add</Button>
+                        <Button type='submit' variant='ghost'>Add</Button>
                     </ModalFooter>
+                    </form>
                 </ModalContent>
             </Modal>
         </>

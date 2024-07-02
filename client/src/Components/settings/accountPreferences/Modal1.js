@@ -4,18 +4,35 @@ import { Link, Link as ReactRouterLink } from 'react-router-dom'
 import { useToast } from '@chakra-ui/react'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { UserDataContext } from '../../../Context/UserDataContext'
+import moment from 'moment'
 
 const Modal1 = ({ open, setOpenModal1 }) => {
+
+    const { loggedUserData, updateUserData, getLoggedInUserData ,setLoggedUserData} = useContext(UserDataContext)
+
+    useEffect(() => {
+        formik.setValues({
+            firstname: loggedUserData.firstname || '',
+            lastname: loggedUserData.lastname || '',
+            gender: loggedUserData.gender || '',
+            dob: loggedUserData.dob ? moment(loggedUserData.dob).format('YYYY-MM-DD') : '',
+            location: loggedUserData.location || '',
+            headline: loggedUserData.headline || '',
+            about: loggedUserData.about || '',
+        });
+    }, [loggedUserData]);
+    
     const formik = useFormik({
         initialValues: {
-            firstname: "",
-            lastname: "",
-            gender: "",
-            dob: '',
-            location: '',
-            headline: '',
-            about:''
+            firstname: loggedUserData.firstname,
+            lastname: loggedUserData.lastname,
+            gender: loggedUserData.gender,
+            dob: moment(loggedUserData.dob).format('YYYY-MM-DD'),
+            location: loggedUserData.location,
+            headline: loggedUserData.headline,
+            about: loggedUserData.about
         },
         validateOnBlur: false,
         validateOnChange: false,
@@ -23,23 +40,22 @@ const Modal1 = ({ open, setOpenModal1 }) => {
             firstname: Yup.string().required("Username required").min(6, "Username must be atleast of 6 characters").matches('^[a-zA-Z0-9]+$', 'Username should not contain special characters'),
             lastname: Yup.string().required('Password Required')
         }),
-        onSubmit: (values, actions) => {
-            if (!formik.errors.password && !formik.errors.username) {
-                // const goToNextStep = handleLogin(formik.values.username, formik.values.password)
-
-            }
-            actions.resetForm()
+        onSubmit: async (values, actions) => {
+            await updateUserData(formik.values.firstname, formik.values.lastname, formik.values.gender, formik.values.dob, formik.values.location, formik.values.headline, formik.values.about)
+           
         }
     })
+
     return (
         <>
             <Modal isOpen={open} onClose={() => { setOpenModal1(!open) }} >
                 <ModalOverlay onClick={() => { setOpenModal1(!open) }} />
                 <ModalContent maxWidth={'600px'}>
-                    <ModalHeader>Profile information                  </ModalHeader>
-                    <ModalCloseButton onClick={() => { setOpenModal1(!open) }} />
-                    <ModalBody>
-                        <form onSubmit={formik.handleSubmit}>
+                    <form onSubmit={formik.handleSubmit}>
+
+                        <ModalHeader>Profile information                  </ModalHeader>
+                        <ModalCloseButton onClick={() => { setOpenModal1(!open) }} />
+                        <ModalBody>
 
                             <Box px='20px' width='100%' gap={20} display='flex' justifyContent='start' alignItems='center' >
                                 <Box width='50%' gap='10' cursor='pointer' display='flex' flexDirection='column' alignItems='start'>
@@ -52,11 +68,11 @@ const Modal1 = ({ open, setOpenModal1 }) => {
 
                                     <FormControl isInvalid={formik.errors.gender} >
                                         <FormLabel>Gender</FormLabel>
-                                        <Select border='1px' borderColor='black' placeholder='Select option'>
-                                            <option value='option1'>Male</option>
-                                            <option value='option2'>Female</option>
-                                            <option value='option3'>Other</option>
-                                            <option value='option3'>Prefer not to say</option>
+                                        <Select name='gender' onChange={formik.handleChange} onBlur={formik.handleBlur} value={formik.values.gender} border='1px' borderColor='black' placeholder='Select option'>
+                                            <option value='Male'>Male</option>
+                                            <option value='Female'>Female</option>
+                                            <option value='Other'>Other</option>
+                                            <option value='Not saved'>Prefer not to say</option>
                                         </Select>
                                         <FormErrorMessage>{formik.errors.gender}</FormErrorMessage>
 
@@ -102,15 +118,16 @@ const Modal1 = ({ open, setOpenModal1 }) => {
                             </Box>
 
 
-                        </form>
-                    </ModalBody>
 
-                    <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={() => { setOpenModal1(!open) }}>
-                            Close
-                        </Button>
-                        <Button variant='ghost'>Save</Button>
-                    </ModalFooter>
+                        </ModalBody>
+
+                        <ModalFooter>
+                            <Button colorScheme='blue' mr={3} onClick={() => { setOpenModal1(!open) }}>
+                                Close
+                            </Button>
+                            <Button type='submit' variant='ghost'>Save</Button>
+                        </ModalFooter>
+                    </form>
                 </ModalContent>
             </Modal>
         </>
